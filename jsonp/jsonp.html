@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jsonp测试</title>
+	<script src="jsonp.js"></script>
+</head>
+<body>
+	<script>
+		function myerror(){
+			alert('there must be something wrong!');
+		}
+
+
+		function getData (data){
+			alert("服务器过来的数据是"+data);
+		}
+
+
+		var url = 'http://runningls.com/demos/2016/jsonp/jsonp.php';
+
+		//调用函数。
+		JSONP(url,{
+			data:{
+				id:1
+			},
+			callback:getData,
+			error:myerror,
+			timeout:10000
+		});
+	</script>
+</body>
