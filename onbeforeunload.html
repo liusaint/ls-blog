@@ -1,0 +1,33 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>onbeforeunload</title>
+</head>
+<body>
+
+	请关闭本网页！
+	<script>
+		/*
+	*author:ls
+	*email:liusaint@gmail.com
+	* data:2016/03/20
+	*/
+
+	window.onbeforeunload = function(){
+		setTimeout(function(){
+			setTimeout(beforeloadResult, 50)}
+			, 50);
+
+		return '确认离开网页？';
+	};
+
+
+	function beforeloadResult () {
+		alert("你取消了离开网页！");
+
+		console.log("这里可以做一些其他操作，比如恢复！");
+	}
+
+</script>
+</body>
+</html>
