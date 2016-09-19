@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>  
+<head>  
+<meta charset="utf-8">
+	<script src="jquery-1.7.1.min.js"></script>  
+	<link href="bootstrap-datepicker3.css" rel="stylesheet">      
+      <script src="bootstrap-datepicker.min.js"></script>  
+	<script src="bootstrap-datepicker.zh-CN.min.js"></script>  
+</head>  
+<body>  
+	<input type="text" id="date_begin">
+	<input type="text" id="date_end">
+	<script>
+
+
+		function DatePicker(beginSelector,endSelector){
+            // 仅选择日期
+            $(beginSelector).datepicker(
+            {
+            	language:  "zh-CN",
+            	autoclose: true,
+            	startView: 0,
+            	format: "yyyy-mm-dd",
+            	clearBtn:true,
+            	todayBtn:false,
+            	endDate:new Date()
+            }).on('changeDate', function(ev){
+            	console.log(1);
+            	if(ev.date){
+            		$(endSelector).datepicker('setStartDate', new Date(ev.date.valueOf()))
+            	}else{
+            		$(endSelector).datepicker('setStartDate',null);
+            	}
+            })
+
+            $(endSelector).datepicker(
+            {
+            	language:  "zh-CN",
+            	autoclose: true,
+            	startView:0,
+            	format: "yyyy-mm-dd",
+            	clearBtn:true,
+            	todayBtn:false,
+            	endDate:new Date()
+            }).on('changeDate', function(ev){  
+            	if(ev.date){
+            		$(beginSelector).datepicker('setEndDate', new Date(ev.date.valueOf()))
+            	}else{
+            		$(beginSelector).datepicker('setEndDate',new Date());
+            	} 
+
+            })
+        }
+
+        DatePicker("#date_begin","#date_end");
+
+
+    </script>
+</body>  
+</html>  
