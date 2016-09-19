@@ -25,7 +25,6 @@
             	todayBtn:false,
             	endDate:new Date()
             }).on('changeDate', function(ev){
-            	console.log(1);
             	if(ev.date){
             		$(endSelector).datepicker('setStartDate', new Date(ev.date.valueOf()))
             	}else{
