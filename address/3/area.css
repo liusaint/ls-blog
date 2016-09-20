@@ -1,0 +1,197 @@
+body {
+    line-height: 26px;
+    color: #333;
+    background-color: #fff;
+    min-height: 100%;
+    font-family: Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,WenQuanYi Micro Hei,Microsoft Yahei,sans-serif;
+    font-size: 12px;
+}
+iframe{
+    border: none;
+}
+ol, ul, li{
+    list-style: none;
+}
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-style: normal;
+}
+
+.clear:before, .clear:after, .row:before, .row:after{
+    display: table;
+    content: " ";
+}
+.clearfix:after{content:".";display:block;height:0;line-height:0;clear:both;visibility:hidden;font-size:0;}
+
+a[href]:hover{
+    text-decoration: none;
+}
+a{
+    text-decoration:none;
+}
+a:link{
+    text-decoration:none;
+}
+a:visited{
+
+}
+a:hover{
+    text-decoration:none;
+}
+a:active{
+    text-decoration:none;
+}
+
+.blue{
+	color: #138bff;
+}
+
+
+
+
+/*地址选择开始*/
+.address-info{
+	text-align: center;
+	margin-top: 100px;
+}
+.address-to{
+	position: relative;
+	cursor: pointer;
+}
+.address-to:hover .choosed-address{
+	border: 1px solid #e5e5e5;
+	margin-top: -1px;
+	margin-left: -1px;
+	margin-right: -1px;
+	margin-bottom: -1px;
+}
+.choosed-address-wrap{
+	display: inline-block;
+	position: relative;
+}
+.choosed-address-line{
+	position: absolute;
+	border-bottom: 1px solid #fff;
+	width: 100%;
+	display: inline-block;
+	bottom: -1px;
+	left: 0;
+	z-index: 1;
+}
+.address-to:hover .choosed-address:after{
+	transform: rotate(180deg);
+}
+.choosed-address{
+	/*position: absolute;*/
+	/*left: 0;*/
+	/*top: 0;*/
+	display: inline-block;
+	white-space: nowrap;
+}
+.choose-address{
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 20px;
+	background: #fff;
+	color: #000;
+	padding: 10px 20px;
+	border: 1px solid #e5e5e5;	
+	width: 500px;
+	transition: 0.3s all;
+}
+
+.choose-address a{
+	color: #000;
+}
+.address-tabs{
+	border-bottom: 1px solid #138bff;
+}
+.address-tabs>li{
+	float: left;
+	padding: 0 10px;
+	height: 26px;
+	margin-right: 5px;
+	margin-bottom: -1px;
+
+	text-align: center;
+
+	border: 1px solid #ccc;
+	border-bottom-color: #138bff;
+	background: #f9f9f9;
+	cursor: pointer;
+}
+.address-tabs>li:first-child
+{
+	margin-left: 12px;
+}
+.address-tabs>li.on
+{
+	color: #138bff;
+	border-color: #138bff;
+	border-bottom-color: #fff;
+	background: #fff;
+}
+.area-list{
+	padding-top: 10px;
+}
+.area-list>li{
+	width: 25%;
+	float: left;
+	text-indent: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 25px;
+	white-space: nowrap;
+}
+.area-list>li a:hover{
+	background: #138bff;
+	color: #fff;
+}
+/*地址选择结束*/
+
+
+/*tab*/
+.line-tabs-wrap
+{
+	border-bottom: 1px solid #138bff;
+}
+.line-tab
+{
+	font-size: 18px;
+	line-height: 40px;
+
+	width: 120px;
+	height: 40px;
+	margin-right: 5px;
+	margin-bottom: -1px;
+
+	text-align: center;
+
+	border: 1px solid #e5e5e5;
+	border-bottom-color: #138bff;
+	background: #f9f9f9;
+	cursor: pointer;
+}
+.line-tab:first-child
+{
+	margin-left: 12px;
+}
+.line-tab.on
+{
+	color: #138bff;
+	border-color: #138bff;
+	border-bottom-color: #fff;
+	background: #fff;
+}
+/*tab*/
+
