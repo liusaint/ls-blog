@@ -1,0 +1,25 @@
+<html>  
+<head>
+	<meta charset="utf-8">  
+	<title>javascript多级无限级联动</title>
+	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+
+	<link rel="stylesheet" href="index.css" />
+</head>  
+<body> 
+
+	<p>规则:</p>
+	<p>1.多级联动。无限级。</p>
+	<p>2.数据缓存。</p>
+	<p>3.点击更改类型。不点击的话可提交旧数据。用于编辑的时候。</p>
+	<p>4.如果是编辑页面。则点击出现多级联动，否则传递原来的值。传递最后一级的value值给后台</p>
+<!-- 	<p>5.初始化修改。</p> -->
+
+	<div class="fl js_type_select_wrap hide-select">
+		<input type="text"  name="" class="form-control input_control js_type_select_input" form-check="str" " value="类型" readonly />
+		<input type="hidden" class="code" value="原来的code" />
+	</div>
+	<button id="code">提交</button>
+	<script src="index.js"></script>
+</body>  
+</html>  
