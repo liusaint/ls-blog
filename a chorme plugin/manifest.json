@@ -1,20 +1,24 @@
-﻿{
-	"name": "A",
-	"version": "1.0.1",
-	"manifest_version": 2,
-	"description": "新窗口打开a标签",
-	"browser_action": {
-		"default_popup": "popup.html"
-	},
-	"background": {  
-		"page": "background.html"  
-	},
-	"content_scripts":[
-		{
-			"matches": ["http://*/*","https://*/*"],
-			"js": ["popup.js"],
-			"run_at":"document_end"
-		}
-	],
-	"permissions": ["tabs", "http://*/*","https://*/*"] 
+{
+    "manifest_version": 2,
+    "name": "A",
+    "version": "1.0",
+    "description": "新标签打开链接",
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    // "background": {
+    //     "scripts": [
+    //         "popup.js"
+    //     ]
+    // },
+    "content_scripts":[
+        {
+            "matches": ["http://*/*","https://*/*"],
+            "js": ["back.js"],
+            "run_at":"document_end"
+        }
+    ],
+    "permissions": [
+        "tabs"
+    ]
 }
