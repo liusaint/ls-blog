@@ -1,0 +1,234 @@
+<html>  
+<head>
+	<meta charset="utf-8">  
+	<title>运费设置</title>
+	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+		<script src="bin/js/dialog-min.js"></script>
+		<script src="bin/js/common.js"></script>
+	<link rel="stylesheet" href="bin/css/common.css" />
+	<link rel="stylesheet" href="bin/css/ui-dialog.css" />
+	<link rel="stylesheet" href="index.css" />
+</head>  
+<body> 
+	<div class="freight-wrap">
+
+		<!-- 满额包邮 begin-->
+		<div class="freight-part" type="full">
+			<div class="title">满额包邮</div>
+			<ul class="freight-items">
+						<!-- 注：把相关信息放在li的属性里面。
+						dataid:一条数据的id。
+						areatype: 1:全国 2：地区
+						areaid:省的id,用中划线隔开
+						money:价格。
+					-->
+
+					<li class="freight-item relative" dataid="449" areatype="2" areaid="241-249-257" money="200">
+						<table class="freight-table">
+							<tr> 
+								<td class="middle-td">包邮金额：</td>
+								<td class="money-td orange">￥200</td>
+							</tr>
+							<tr> 
+								<td>地区：</td>
+								<td class="province-td">北京、上海、湖北</td> 
+							</tr>
+						</table>
+						<div class="item-right-btns">
+							<i class="freight-edit-btn li-btn" type="showEditLi">改</i>
+							<i class="freight-del-btn li-btn" type="delLi">删</i>
+						</div>
+					</li>					
+
+				</ul>
+				<button class="freight-add-btn btn true">
+					新增运费
+				</button>
+			</div>
+			<!-- 满额包邮 end-->
+
+			<!-- 普通运费 begin-->
+			<div class="freight-part"  type="normal">
+				<div class="title">普通运费</div>
+				<ul class="freight-items">
+
+					<li class="freight-item relative special" dataid="" areatype="1" areaid="1" money="未设置">
+						<table class="freight-table">
+							<tbody><tr> 
+								<td class="small-td">金额：</td>
+								<td class="money-td orange">￥未设置</td>
+							</tr>
+							<tr> 
+								<td>地区：</td>
+								<td class="province-td">全国</td> 
+							</tr>
+						</tbody></table>
+						<div class="item-right-btns">
+							<i class="freight-edit-btn li-btn" type="showEditLi">改</i>							
+						</div>
+					</li>
+
+					<li class="freight-item relative" dataid="461" areatype="2" areaid="241-249-257" money="77">
+						<table class="freight-table">
+							<tr>
+								<td class="small-td">运费：</td>
+								<td class="money-td orange">￥77</td>
+							</tr>
+							<tr> 
+								<td>地区：</td>
+								<td class="province-td">北京、上海、湖北</td> 
+							</tr>
+						</table>
+						<div class="item-right-btns">
+							<i class="freight-edit-btn li-btn" type="showEditLi">改</i>
+							<i class="freight-del-btn li-btn" type="delLi">删</i>
+						</div>
+					</li>
+
+
+				</ul>
+				<button class="freight-add-btn btn true">
+					新增运费
+				</button>
+			</div>
+			<!-- 普通运费 end-->
+
+
+			<!-- 地区包邮 begin-->
+			<div class="freight-part" type="area">
+				<div class="title">地区包邮</div>
+				<ul class="freight-items">
+
+					<!-- 在这个li里面添加初始的数据信息 -->
+					<li class="freight-item relative" dataid="" areatype="2" areaid="241-249-257">
+						<table class="freight-table">
+							<tr>
+								<td class="long-td">默认包邮地区：</td> 
+								<td class="province-td">北京、上海、湖北</td>
+							</tr>
+						</table>
+						<div class="item-right-btns">
+							<i class="freight-edit-btn li-btn" type="showEditLi">改</i>
+							<i class="freight-del-btn li-btn" type="delLi">删</i>
+						</div>
+					</li>
+
+				</ul>
+				<!-- 如果有数据，给下面的button加个hide属性 -->
+				<button class="freight-add-btn btn true hide">
+					新增运费
+				</button>
+			</div>
+			<!-- 地区包邮 end-->
+		</div>
+			<!-- 下面是模态框内容 后台渲染不用考虑里面内容 -->
+	<div class="hidden">
+
+		<!-- 普通运费 begin-->
+		<div class="area-modal" id="js-normal-modal" type="normal">
+			<div class="title">普通运费
+				<i class="fr freight-close-btn"></i>
+			</div>
+			<table class="area-table">
+				<tr class="area-tr">
+					<td>选择地区</td>
+					<td class="pr30 pt20">				
+						<div class="area-radios-wrap">
+							<form>
+								<label for="area_radio" id="the_country"><input type="radio" name="area_radio"  value="1">全国（除已设置运费的地区外）</label>
+								<label for="all_province" id="all_province"><input type="checkbox" name="all_province">全选</label>			
+							</form>
+
+						</div>
+						<ul class="area-list clear">
+						</ul>
+					</td>
+				</tr>
+				<tr class="money-tr">
+					<td>运费金额</td>
+					<td>
+						<input type="text" name="freight" placeholder="示例：200">
+					</td>
+				</tr>
+
+			</table>
+			<div class="footer mt30">
+				<button class="freight-cancel-btn btn mr10 false">取消</button>
+				<button class="freight-ensure-btn btn btn-blue true">保存</button>
+
+			</div>
+		</div>
+		<!-- 普通运费 end-->
+		
+		<!-- 满额包邮 begin-->
+		<div class="area-modal" id="js-full-modal" type="full">
+			<div class="title">满额包邮 
+				<i class="fr freight-close-btn"></i>
+			</div>
+			<table class="area-table">
+				<tr class="area-tr">
+					<td>包邮区</td>
+					<td class="pr30">				
+						<div class="area-radios-wrap">
+							<form>
+								<label for="area_radio"><input type="radio" name="area_radio" value="1">全国（除已设置运费的地区外）</label>
+								<label for="area_radio">
+									<input type="radio" name="area_radio" value="2">地区
+								</label>
+							</form>
+						</div>
+						<ul class="area-list clear">			
+						</ul>
+					</td>
+				</tr>
+				<tr class="money-tr">
+					<td>包邮金额</td>
+					<td>
+						<input type="text" name="freight" placeholder="示例：200">及以上
+					</td>
+				</tr>
+
+			</table>
+			<div class="footer mt30">
+				<button class="freight-cancel-btn btn mr10 false">取消</button>
+				<button class="freight-ensure-btn btn btn-blue true">保存</button>
+
+			</div>
+		</div>
+		<!-- 满额包邮 end-->
+
+		<!-- 地区包邮 begin-->
+		<div class="area-modal" id="js-area-modal" type="area">
+			<div class="title">地区包邮
+				<i class="fr freight-close-btn"></i>
+			</div>
+			<table class="area-table">
+				<tr class="area-tr">
+					<td>包邮区</td>
+					<td class="pr30">				
+						<div class="area-radios-wrap">
+							<form>
+								<label for="area_radio">
+									<input type="radio" name="area_radio" value="1">全国
+								</label>
+								<label for="area_radio">
+									<input type="radio" name="area_radio" value="2" checked>地区
+								</label>
+							</form>
+						</div>
+						<ul class="area-list clear">
+						</ul>
+					</td>
+				</tr>
+			</table>
+			<div class="footer mt30">
+				<button class="freight-cancel-btn btn mr10 false">取消</button>
+				<button class="freight-ensure-btn btn btn-blue true">保存</button>
+			</div>
+		</div>
+		<!-- 地区包邮 end-->
+
+	</div>
+		<script src="index.js"></script>
+	</body>  
+	</html>  

@@ -1,0 +1,251 @@
+.fade {
+	opacity: 0;
+	-webkit-transition: opacity .15s linear;
+	-o-transition: opacity .15s linear;
+	transition: opacity .15s linear;
+}
+.fade.in {
+	opacity: 1;
+}
+.modal-open {
+	overflow: hidden;
+}
+.modal-open .container {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+.modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 101;
+	display: none;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
+	word-wrap: break-word;
+}
+.modal.fade .modal-dialog {
+	-webkit-transition: -webkit-transform .3s ease-out;
+	-o-transition: -o-transform .3s ease-out;
+	transition: transform .3s ease-out;
+	-webkit-transform: translate(0, -25%);
+	-ms-transform: translate(0, -25%);
+	-o-transform: translate(0, -25%);
+	transform: translate(0, -25%);
+}
+.modal.in .modal-dialog {
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	transform: translate(0, 0);
+	
+}
+.modal-open .modal {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.modal-dialog {
+	position: relative;
+	width: auto;
+	margin: 10px;
+	background: #fff;
+	display: table;
+    margin: 0 auto;
+}
+.modal-content {
+	position: relative;
+	background: #fff;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	/*
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, .2);
+	*/
+	outline: 0;
+	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #000;
+}
+.modal-backdrop.fade {
+	filter: alpha(opacity = 0);
+	opacity: 0;
+}
+.modal-backdrop.in {
+	filter: alpha(opacity = 50);
+	opacity: .5;
+}
+.modal-header {
+	margin: 0 20px;
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.modal-header .close {
+	font-weight: 500;
+    font-size: xx-large;
+    cursor: pointer;
+}
+.modal-title {
+	font-size: 18px;
+	font-weight: normal;
+}
+.modal-title .red{
+	font-size: 14px;
+	padding-left: 10px;
+}
+.modal-body {
+	position: relative;
+	padding: 20px;
+}
+.p20{padding: 20px;}
+.modal-md .modal-body {
+	padding: 30px;
+}
+.modal-footer {
+	padding-bottom: 40px;
+    display: table;
+    margin: 0 auto; 
+}
+.modal-footer .btn{
+	height: 48px;
+	width: 180px; 
+	font-size: 18px;
+}
+.modal-footer .btn+.btn {
+	margin-bottom: 0;
+	margin-left: 5px;
+}
+.modal-footer .btn-group .btn+.btn {
+	margin-left: -1px;
+}
+.modal-footer .btn-block+.btn-block {
+	margin-left: 0;
+}
+.modal-scrollbar-measure {
+	position: absolute;
+	top: -9999px;
+	width: 50px;
+	height: 50px;
+	overflow: scroll;
+}
+.show_alert i, .pop_modal i{
+	display: inline-block;
+	width: 26px;
+	height: 27px;
+	vertical-align: middle;
+	position: absolute;
+	left: 30px;
+	top: 16px;
+}
+/*i.success {
+	background: url("/images/image.png") -355px -25px;
+}
+i.error {
+	background: url("/images/image.png") -303px -25px;
+}
+i.warning {
+	background: url("/images/.png") -329px -25px;
+}*/
+.modal_alert_box {
+	/*padding: 20px 30px 20px 75px;*/
+	padding: 20px;
+	position: relative;
+	word-wrap: break-word;
+	font-size: 14px;
+}
+.dropdown {
+	position: relative;
+}
+.dropdown-toggle:focus {
+	outline: 0;
+}
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0px;
+	margin: 2px 0 0;
+	font-size: 12px;
+	text-align: left;
+	list-style: none;
+	background-color: #fff;
+	-webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px #aaa;
+	line-height: 24px;
+}
+.open > .dropdown-menu {
+  display: block;
+}
+.dropdown_menu a{
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #666;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+.close {
+    font-size: 21px;
+    font-weight: 700;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    float: right;
+}
+.close:focus, .close:hover {
+    color: #000;
+    text-decoration: none;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+	.modal-dialog {
+		min-width: 480px;
+		max-width: 1200px;
+		margin-top: 30px;
+	}
+	.modal-lg {
+		width: 1200px;
+	}
+	.modal-big{
+	    width: 800px;
+	}
+	.modal-sm {
+		width: 500px;
+	}
+	
+@media ( min-width : 1366px) {
+	
+}
+.modal-smallest{
+	width: 350px;
+}
+.first-tip .modal-dialog {
+	width: 1000px;
+}

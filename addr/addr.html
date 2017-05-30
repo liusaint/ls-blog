@@ -1,0 +1,98 @@
+<html>  
+<head>
+	<meta charset="utf-8">  
+	<title>地址管理</title>
+	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+	<script src="bin/js/common.js"></script>
+	<script src="bin/js/area.js"></script>
+	<link rel="stylesheet" href="bin/css/common.css" />
+	<link rel="stylesheet" href="index.css" />
+</head>  
+<body> 
+<div class="right-content-wrap">
+		<ul class="line-tab-box tab-box">
+			<li class="tab-hd active">收货信息</li>
+		</ul>
+
+		<!-- 如果没有任何地址  添加class:hide -->
+		<div class="address-list-wrap">
+			<div class="item-head"><i class="head-i"></i>已保存的收货信息</div>		
+			<div class="address-list">
+				<div class="address-inner ">
+					<!-- 地址列表 -->
+					<?php for($i = 0; $i < 3; $i++){ ?>
+					<div class="address-part iblock border" data-id="address_<?=($i+1)?>">
+						<span class="def-address absolute textc hide">默</span>
+						<input type="hidden" name="address_id" value="<?=($i+1)?>" /> <!-- 数据id -->
+						<input type="hidden" name="is_default" value="0"  /> <!-- 默认地址 -->
+
+						<span class="block">某某某<?=($i+1)?><input value="某某某<?=($i+1)?>" type="hidden" name="receiver" /></span>
+						<span class="block">13<?=($i+1)?>11111111<input value="13<?=($i+1)?>11111111" type="hidden" name="phone" /></span>
+						<span class="block">北京 东城			
+							<input type="hidden" name="province" value="北京"  /> <!-- 省份 -->
+							<input type="hidden" name="province_id" value="241"  /> <!-- 省份id -->
+							<input type="hidden" name="city" value="东城"  /> <!-- 城市 -->
+							<input type="hidden" name="city_id" value="369"  /> <!-- 城市id -->
+						</span>
+						<span class="block adrerss">东城园管委会<input value="东城园管委会" type="hidden" name="detail_address" /></span>
+						<span class="block text-right blue btn-box">
+							<a class="person-btn" type="setDefault">设为默认地址</a>
+							<a class="person-btn" type="editData">编辑</a>
+							<a class="person-btn" type="delData">删除</a>
+						</span>
+					</div>
+					<?php } ?>
+					<div class="address-part iblock border add-address-btn person-btn" type="addaddress">
+						<span class="add-text blue" >+</span><span class="middle blue">新增收货地址</span>
+					</div>
+					<!-- 地址列表 end -->
+				</div>
+			</div>
+		</div>
+		<!-- 注 如果没有任何地址，请去掉下面的hide -->
+		<div class="editor-address hide">
+			<div class="item-head"><i class="head-i"></i>收货信息  <div class="fr blue noaddress hide">您还没有填写任何收货信息哦！</div>
+		</div>
+		<div class="border pad-ud-20">
+			<table class="no-bor account-table">
+				<input type="hidden" name="id" />
+				<tr>
+					<td class="text-right" width="14%">收货人</td>
+					<td><input type="text" check="name" msg="*收货人姓名" class="required" name="receiver" placeholder="请输入收货人姓名" />&nbsp;&nbsp;<i class="errorMsg">*</i></td>
+				</tr>
+
+				<tr>
+					<td class="text-right">联系电话</td>
+					<td><input type="text"  check="phone" msg="*联系电话" class="required" name="phone" placeholder="请输入手机号/固定电话" />&nbsp;&nbsp;<i class="errorMsg">*</i></td>
+				</tr>
+
+				<tr>
+					<td class="text-right">收货地址</td>
+
+					<td>
+						<span class="iblock select-beautify middle province_box"></span>
+						<span class="iblock select-beautify middle city_box"></span>							
+						<input type="text"   check="noempty" msg="*" class="required" placeholder="请输入详情地址" name="detail_address" />
+						<i class="errorMsg">*</i>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="text-right"></td>
+					<td><label><input type="checkbox" class="middle" name="is_default" />&nbsp;设为默认地址</label></td>
+				</tr>
+
+				<tr>
+					<td class="text-right"></td>
+					<td>
+						<button class="btn blue person-btn" type="submit" >保存</button>
+						<button class="btn gray person-btn" type="cancel" ">取消</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<script src="addr.js"></script>
+</body>  
+</html>  

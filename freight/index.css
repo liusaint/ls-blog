@@ -1,0 +1,186 @@
+/*运费设置 20160927*/
+
+
+
+.freight-wrap{
+	font-size: 0;
+}
+.freight-part{
+	width: 400px;
+	border: 1px solid #e5e5e5;
+	display: inline-block;
+	margin-top: 40px;
+	min-height: 200px;
+	margin-right: 20px;
+	font-size: 14px;
+	text-align: center;
+	vertical-align: top;
+}
+.freight-part .title{
+	font-size: 28px;
+	color: #333;
+	padding-left: 20px;
+	line-height: 62px;
+	text-align: left;
+	height: 62px;
+}
+.freight-add-btn{
+	background: #61aef0;
+	color: #fff;
+	border: none;
+	padding: 10px 40px;
+	margin:30px 0;
+}
+.freight-add-btn:before{
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	width: 24px;
+	height: 24px;
+	background: url(/images/supplier.png) -427px -84px;
+	margin-right: 10px;
+}
+.freight-items{
+	padding: 0 20px;
+
+}
+.freight-item{
+	background: #f4f8fc;
+	/*height: 80px;*/
+	padding: 20px 10px;
+	margin-bottom: 10px;
+	line-height: 1.5em; 
+	text-align: left;
+}
+.freight-table{
+	width: 290px;
+}
+.freight-table td,.freight-table tr{
+	border: none;
+	padding: 0;
+	vertical-align: top;
+}
+.freight-table td:first-child{
+	text-align: right;	
+}
+.freight-table td:last-child{
+	text-align: left;	
+}
+.freight-table .small-td{
+	width: 40px;
+}
+.freight-table .middle-td{
+	width: 65px;
+}
+.freight-table .long-td{
+	width: 85px;
+}
+.item-right-btns{
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -10px;
+}
+.item-right-btns i {
+	display: inline-block;
+	vertical-align: middle;
+}
+.freight-edit-btn{
+	height: 18px;
+	width: 16px;
+	background: url(/images/supplier.png) -86px -51px;
+	margin-right: 5px;
+}
+.freight-del-btn{
+	height: 18px;
+	width: 18px;
+	background: url(/images/supplier.png) -455px -86px;
+}
+
+.area-modal{
+	width: 800px;
+	border-radius: 10px;
+	color: #000;
+}
+.area-modal .title{
+	height: 40px;
+	background:#61aef0;
+	color: #fff;
+	line-height: 40px;
+	text-indent: 20px;
+}
+
+
+.area-table{
+	/*width: 290px;*/
+	/*line-height: 1em;*/
+}
+.area-table td,.area-table tr{
+	border: none;
+	padding: 0;
+	vertical-align: top;
+}
+.area-table td{
+
+}
+.area-table td:first-child{
+	width: 90px;	
+}
+.area-table td:last-child{
+	text-align: left;	
+}
+.area-tr{
+	line-height: 60px;
+}
+
+.area-list{
+	line-height: 1.5em;
+	width: 100%;
+	border: 1px solid #e5e5e5;
+	padding: 0px 20px 20px  20px;
+}
+.area-list li{
+	width: 12.5%;
+	float: left;
+	margin-top: 20px;
+}
+.area-list li.disabled{
+	color: #999;
+}
+.area-list input[type=checkbox],.area-radios-wrap input[type=checkbox]{
+	margin-right: 5px;
+}
+.area-modal input[type=radio]{
+	margin-right: 5px;
+}
+.area-table .pr30{
+	padding-right: 30px;
+}
+
+.area-radios-wrap label{
+	margin-right: 50px;
+}
+.money-tr{
+	line-height: 30px;
+}
+.money-tr td{
+	padding-top: 20px;
+}
+.area-modal .footer{
+	border-top: 1px solid #e5e5e5;
+	text-align: right;
+	padding: 15px 30px;
+}
+.freight-close-btn{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	background: url(/images/supplier.png) -286px -53px;
+	margin: 12px 20px;
+}
+.hide{
+	display: none;
+}
+
+
