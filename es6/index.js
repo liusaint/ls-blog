@@ -38,7 +38,7 @@
 })(11, 22, 33, 44, 55);
 
 //生成器 
-//
+//1.基本使用
 (function() {
 	function* quips(name) {
 
@@ -63,4 +63,16 @@
 	//你好 ls!
 	//希望你能喜欢这篇介绍 ES6 的译文
 	//我们下次再见！ 
+})();
+
+//2.循环呢？
+(function() {
+	function *a(){
+		yield a();
+	}
+	var ite = a();
+	for(var i of ite){
+		console.log(i)
+	}
+
 })();
