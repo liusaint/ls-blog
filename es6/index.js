@@ -1,5 +1,8 @@
 //es6学习
 
+function log() {
+	console.log(...arguments);
+}
 
 /*for of*/
 (function() {
@@ -82,7 +85,9 @@
 
 })();
 
-//let块级声明
+
+
+//let块级声明  用于循环等，可以一定程序上替代闭包。
 (function() {
 	return;
 	b++;
@@ -97,7 +102,7 @@
 	// let d = 1;
 })();
 
-//const 块级 死区 不重复定义 
+//const 块级 死区 不重复定义 es6后流行默认的都用const声明。除非是确定要变的。
 (function() {
 	return;
 	//a++;//ReferenceError: a is not defined
@@ -113,5 +118,61 @@
 	obj.a = 1;
 	// obj = {}//TypeError: Assignment to constant variable.
 	console.log(obj)
+
+})();
+
+//模板字面量
+(function() {
+	return;
+	//1.常规使用
+	var a = `
+    <html>
+	    <head>
+	    	<title></title>
+	    </head>
+	    <body>
+	    	<div></div>
+	    </body>
+    </html>
+    `;
+	// console.log(a);
+
+	//2.占位符。中间可以是表达式。是js代码。未定义的会报错。
+	var b = 11;
+	var bStr = `I am ${b} years old,my brother is ${b*2} years old.`;
+	console.log(bStr); //I am 11 years old,my brother is 22 years old.
+
+	//3.标签模板
+	//4.在模板字面量中使用原始值。
+
+
+
+})();
+
+//对象
+(function() {
+	//简写
+	var a = 1;
+	var b = 2;
+	var pName = 'p';
+	var obj = {
+		a,
+		b,
+		'c': 1,
+		d(a) {
+			return a
+		},
+		[pName]: 3
+	};
+	console.log(obj);
+
+	//方法
+	log(Object.is(NaN,NaN));//true
+	log(Object.is(+0,-0));//false
+
+	//extend。
+	log(Object.assign({target:'targetObj'},obj));
+
+
 
 })();
