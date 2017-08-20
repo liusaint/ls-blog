@@ -176,3 +176,11 @@ function log() {
 
 
 })();
+
+//supper 原型的拓展
+(function() {
+
+
+
+
+})();
