@@ -167,20 +167,44 @@ function log() {
 	console.log(obj);
 
 	//方法
-	log(Object.is(NaN,NaN));//true
-	log(Object.is(+0,-0));//false
+	log(Object.is(NaN, NaN)); //true
+	log(Object.is(+0, -0)); //false
 
 	//extend。
-	log(Object.assign({target:'targetObj'},obj));
+	log(Object.assign({
+		target: 'targetObj'
+	}, obj));
 
 
 
 })();
 
-//supper 原型的拓展
+//await 异步代码以同步的方式 来写。 es7的方法。
 (function() {
+	var a = {
+		async getAdminData() {
+			try {
+				const res = await getAsyncRes()
+				console.log(res);
+			} catch (err) {
+				console.log('您尚未登陆或者session失效')
+			}
+		}
+	}
 
 
+	//返回的是一个promise
+	function getAsyncRes() {
+
+		return new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve(5);
+			}, 1000)
+		})
+
+	}
 
 
+	a.getAdminData();
+	console.log(1)
 })();
