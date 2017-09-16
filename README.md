@@ -1,5 +1,3 @@
-# JavaScript-record
-
 ### 我的github博客 前端日常
 
 
