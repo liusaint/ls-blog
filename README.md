@@ -15,4 +15,6 @@
 
 [IE踩坑记](https://github.com/liusaint/JavaScript-record/issues/7)
 
+[个人总结的前端开发规范](https://github.com/liusaint/JavaScript-record/issues/8)
+
 
