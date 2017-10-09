@@ -17,4 +17,6 @@
 
 [个人总结的前端开发规范](https://github.com/liusaint/JavaScript-record/issues/8)
 
+[模拟multiple select，实现不按ctrl单击选中以及拖动选择](https://github.com/liusaint/JavaScript-record/issues/9)
+
 
