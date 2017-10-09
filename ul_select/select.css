@@ -1,0 +1,22 @@
+ul,li{
+	list-style: none;
+	margin:0;
+	padding: 0;
+}
+.ori_select,.ul_select{
+	height:220px;
+	width: 100%;
+	overflow: auto;
+}
+.ul_select{
+	border: 1px solid #ccc;
+}
+.ul_select>li{
+	user-select:none;
+}
+.ul_select>li.choosed{
+	background: #ccc;
+}
+.title{
+	margin:50px 0 10px;
+}
