@@ -7,11 +7,17 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  created(){
+    this.$alert(2);
+  }
 }
 </script>
 
 <style>
+/*import 'element-ui.css';*/
+@import '../node_modules/element-ui/lib/theme-default/index.css';
+/*@import '../../node_modules/swiper/dist/css/swiper.min.css';*/
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
