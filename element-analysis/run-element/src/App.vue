@@ -2,7 +2,9 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
+     <ElAlert title="这是一个alert" show-icon description="this is description">1</ElAlert>
   </div>
+
 </template>
 
 <script>
