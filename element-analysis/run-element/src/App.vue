@@ -3,6 +3,7 @@
     <img src="./assets/logo.png">
     <router-view/>
      <ElAlert title="这是一个alert" show-icon description="this is description">1</ElAlert>
+      <el-button type="primary" icon="edit" :disabled="true" @click="clickbtn">按钮</el-button>
   </div>
 
 </template>
@@ -11,7 +12,12 @@
 export default {
   name: 'app',
   created(){
-    this.$alert(2);
+    // this.$alert(2);
+  },
+  methods:{
+    clickbtn(){
+      alert(1);
+    }
   }
 }
 </script>
