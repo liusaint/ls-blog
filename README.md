@@ -19,4 +19,6 @@
 
 [模拟multiple select，实现不按ctrl单击选中以及拖动选择](https://github.com/liusaint/JavaScript-record/issues/9)
 
+[jQuery Placeholder Plugin源码分析](https://github.com/liusaint/ls-blog/issues/11)
+
 
