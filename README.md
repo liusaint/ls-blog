@@ -1,4 +1,8 @@
-### 我的github博客 前端日常
+### 我的github博客 前端日常记录
+
+#### 更多早期博客在CSDN上。http://blog.csdn.net/liusaint1992
+#### 文章基本是写在项目的issues中。欢迎star，不要fork，不要fork，不要fork！
+
 
 
 [几种跨域处理方式](https://github.com/liusaint/JavaScript-record/issues/1)
