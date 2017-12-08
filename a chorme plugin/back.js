@@ -1,11 +1,16 @@
 function init(){
-	var aDoms = document.getElementsByTagName('a');
-	var len = aDoms.length;
-	for (var i = 0; i < len; i++) {
-		aDoms[i].setAttribute("target","_blank")
+	var aFn = function(){
+				var aDoms = document.getElementsByTagName('a');
+		var len = aDoms.length;
+		for (var i = 0; i < len; i++) {
+			aDoms[i].setAttribute("target", "_blank")
+		}
 	}
+	var timer = setTimeout(aFn, 5000);
+	aFn();
+
 	var cd = new CD;
-	// $("div.header").remove();
+	$("div.header").remove();
 	cd.init();
 	
 }
