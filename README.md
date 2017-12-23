@@ -25,4 +25,5 @@
 
 [jQuery Placeholder Plugin源码分析](https://github.com/liusaint/ls-blog/issues/11)
 
+[记录一个bug，逻辑错误，结果正确，异步代码调试及IE下的渲染机制](https://github.com/liusaint/ls-blog/issues/13)
 
