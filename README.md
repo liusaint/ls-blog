@@ -27,3 +27,9 @@
 
 [记录一个bug，逻辑错误，结果正确，异步代码调试及IE下的渲染机制](https://github.com/liusaint/ls-blog/issues/13)
 
+[异步编程的一个场景](https://github.com/liusaint/ls-blog/issues/14)
+
+[再说IE9中的console](https://github.com/liusaint/ls-blog/issues/15)
+
+[JavaScript面向对象](https://github.com/liusaint/ls-blog/issues/16)
+
