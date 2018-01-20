@@ -33,3 +33,5 @@
 
 [JavaScript面向对象](https://github.com/liusaint/ls-blog/issues/16)
 
+[知乎快捷取消我关注的问题chrome插件](https://github.com/liusaint/ls-blog/issues/17)
+
