@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "A",
+    "version": "1.0",
+    "description": "知乎快速取消关注问题",
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts":[
+        {
+            "matches": ["http://*/*","https://*/*"],
+            "js": ["jquery.js","back.js"],
+            "run_at":"document_end"
+        }
+    ],
+    "permissions": [
+        "tabs"
+    ]
+}
