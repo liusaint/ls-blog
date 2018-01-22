@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "A",
+    "name": "Z",
     "version": "1.0",
     "description": "知乎快速取消关注问题",
     "browser_action": {

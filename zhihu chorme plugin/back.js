@@ -3,14 +3,14 @@
  * 1.把所有关注的问题列出来。
  * 2.给所有的问题添加取消关注按钮并完成取消关注。
  * 
- * author: 841766635@qq.com
+ * author: liusaint@gmail.com
  * date: 20180120
  */
 
 var ZhiHu = {
 	htmlArr: [], //保存每一页的问题的html数据。
 	pageItems: {}, //保存每一页的数量。
-	INTEVAL: 2000, //翻页的时间间隔。
+	INTEVAL: 1000, //翻页的时间间隔。
 	timer: '', //定时器
 	//初始化。
 	init: function() {
