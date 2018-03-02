@@ -5,6 +5,8 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2018.3
+* [前端性能优化小结](https://github.com/liusaint/ls-blog/issues/22)
 
 #### 2018.2
 * [探究点击事件在JavaScript事件循环中的表现](https://github.com/liusaint/ls-blog/issues/20)
