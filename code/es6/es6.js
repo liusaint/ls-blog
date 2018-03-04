@@ -1,3 +1,5 @@
+//Symbol一方面是函数。但不是构造函数，不能new。 另一方面也保存了很多内部方法原生实现的方法名的引用如Symbol.iterator
+
 //set weakSet Map weakMap
 (function(){
 
@@ -27,3 +29,31 @@
 	// map.clear();
 
 })()
+
+// for of 循环可迭代对象，当你向任意对象添加 myObject[Symbol.iterator]()方法，就可以遍历这个对象了
+//$.fn[Symbol.iterator] = Array.prototype[Symbol.iterator];//[ɪtə'reɪtə]
+//
+
+function* a(){
+	console.log(1)
+	yield 11;
+	console.log(2);
+	yield 22;
+	console.log(3)
+
+}
+console.log('generators begin')
+var item = a();
+console.log(item.next());//1 { value: 11, done: false }
+console.log(item.next());//2 { value: 22, done: false }
+console.log(item.next());//3 { value: undefined, done: true }
+
+console.log(typeof a);//function
+/*Generators
+* a()的时候 不执行。
+* a().next()才输出1.
+* 生成器对象保留了对
+这个堆栈结构的引用（备份），所以稍后调用.next()可以重新激活堆栈结构并且继续执行
+* 生成器是迭代器。
+*
+*/
