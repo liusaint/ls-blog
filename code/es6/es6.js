@@ -1,3 +1,21 @@
+
+
+function lg(...a){
+	console.log.apply(console,a);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Symbol一方面是函数。但不是构造函数，不能new。 另一方面也保存了很多内部方法原生实现的方法名的引用如Symbol.iterator
 
 //set weakSet Map weakMap
@@ -82,11 +100,13 @@
 // for of 首先会调用对象的 Symbol.iterator方法。返回带有.next()方法的iterator对象。
 // 然后调用 iterator.next();返回result。
 // 如果 result.done ！= false 就继续迭代。 将result.value赋予for of循环的of前面的变量使用。
+// 如果过早退出会触发，break或return时会触发迭代器 iterator.return()方法。
 
 //所以 并不能说对象不能使用for of。要判断它是否满足条件。
-//并且 迭代器对象 可以
+//并且 迭代器对象 因为它是边迭代边生成 可以在next中加逻辑，产生一些特殊的集合。
 (function() {
 
+	return;
 	var count = 0;
 
 	var a = {
@@ -108,12 +128,21 @@
 				value: value
 			}
 
+		},
+
+		return(){
+
+			console.log('return');
+			return {}
 		}
 	}
 
 
 	for (var i of a) {
-		console.log(i)
+		console.log(i);
+		// if(i == 2){
+		// 	break;
+		// }
 	}
 
 	console.log(a[5]);//这种没有得到支持。
@@ -121,3 +150,143 @@
 })();
 
 
+//生成器 generators
+// yield返回的是带value和done的对象
+// iterator.next()可传入参数.返回到生成器中接着执行.比如ajax执行成功之后接着执行回调.
+
+(function(){
+
+	function *kk(){
+		let first = yield 1;
+		lg(first)
+		let second = yield first + 2;
+		lg(second)
+		yield second +3;
+		console.log(second);
+
+	}
+
+	var iteratorKk = kk();
+	lg(iteratorKk.next());
+	lg(iteratorKk.next(3));
+	lg(iteratorKk.next(6));
+	lg(iteratorKk.next(7));
+
+
+
+
+	// return;
+
+	function *a(){
+		yield 1;
+		var data = yield 8;
+		console.log(data);
+	}
+
+	var iterator = a();
+	console.log(typeof a);//function
+	console.log(iterator.next());//{ value: 1, done: false }
+	console.log(iterator.next());//{ value: 8, done: false }
+	console.log(iterator.next({status:1,data:666}));
+
+	//生成器是迭代器
+	function *c(){
+		var i=5;
+		while(i--){
+			yield i;
+		}
+	}
+
+	var iteratorC = c();
+	for(let d of iteratorC){
+		console.log(d)
+	}
+
+})()
+
+
+//字符器
+;(function(){
+
+return;
+var name = 'ls';
+console.log(`my name is ${name}`);
+
+
+})();
+
+
+//不定参数
+;(function(){
+	return;
+	function a(a,...b){
+		console.log(arguments);//{ '0': 1, '1': 2, '2': 3 } arguments也还是有效的。
+		console.log(b);//[ 2, 3 ]
+		
+	}
+	a(1,2,3)
+	console.log(a.length);//.length不包含不定参数和默认参数
+
+})();
+
+
+//解构
+;
+(function() {
+
+	return;
+
+	var [a, b] = [1, 2];
+	lg(a); //1
+	var [c, [d]] = [1, [3]];
+	lg(d); //3
+	var {
+		a: aa,
+		b: bb
+	} = {
+		a: 11,
+		b: 22
+	}
+	lg(aa); //11kq1,	 b56tr5555555
+
+	var {
+		e,
+		f: {
+			g
+		}
+	} = {
+		e: 12,
+		f: {
+			g: 222
+		}
+	}
+	lg(g); ///222
+
+
+	//使用
+	function k({a,b,c}){
+		lg(a);//1
+	}
+	k({a:1,b:2,c:3})
+
+	//var [key,val] of [1,2,3]
+	//var [a1,a2] = fa();
+	//var {a,b} = require('a.js');
+
+})();
+
+
+
+// Symbol
+//1.for in不会把Symbol为键的遍历出来.
+//2.如果没有拿到定义Symbol时的变量,外部无法访问到该值,也无法覆盖该值.比如var a = Symbol().只有通过a代表的值能获取到Symbol属性的值.
+//3.Symbol不是构造函数.不能加new.
+//4.全局的Symbol对象上,有很多内置的属性指向JS很多内部使用的Symbol.如Symbol.iterator方法.
+//5.Symbol.for('123');返回的始终是同一个Symbol.
+//6.Symbol('abc');
+//7.obj instanceof constructor.可以换成. constructor[Symbol.hasInstance](object);
+//
+//
+//weakSet weekMap
+//1.weekSet的值和WeeMap的键要是对象.
+//2.不可迭代.
