@@ -32,7 +32,8 @@
 
 // for of 循环可迭代对象，当你向任意对象添加 myObject[Symbol.iterator]()方法，就可以遍历这个对象了
 //$.fn[Symbol.iterator] = Array.prototype[Symbol.iterator];//[ɪtə'reɪtə]
-//
+// for of也可以遍历字符串
+// 普通对象不能用for of。  map对象可以。
 ;(function(){
 	return;
 	function* a() {
@@ -73,7 +74,50 @@
 		next = aIterator.next()
 	}
 
-})()
+})();
 
+
+
+//迭代器对象
+// for of 首先会调用对象的 Symbol.iterator方法。返回带有.next()方法的iterator对象。
+// 然后调用 iterator.next();返回result。
+// 如果 result.done ！= false 就继续迭代。 将result.value赋予for of循环的of前面的变量使用。
+
+//所以 并不能说对象不能使用for of。要判断它是否满足条件。
+//并且 迭代器对象 可以
+(function() {
+
+	var count = 0;
+
+	var a = {
+		[Symbol.iterator]: function() {
+			return this;
+		},
+
+		next() {
+			var done = false;
+			var value;
+			if (count > 7) {
+				done = true;
+				value = undefined;
+			} else {
+				value = count++
+			}
+			return {
+				done: done,
+				value: value
+			}
+
+		}
+	}
+
+
+	for (var i of a) {
+		console.log(i)
+	}
+
+	console.log(a[5]);//这种没有得到支持。
+
+})();
 
 
