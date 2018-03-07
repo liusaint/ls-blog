@@ -2,7 +2,7 @@
 
 //set weakSet Map weakMap
 (function() {
-
+	return;
 	var set = new Set();
 	var set1 = new Set([1, 2, 3, 4, 1, 2]);
 	console.log(set1.size)
@@ -33,7 +33,8 @@
 // for of 循环可迭代对象，当你向任意对象添加 myObject[Symbol.iterator]()方法，就可以遍历这个对象了
 //$.fn[Symbol.iterator] = Array.prototype[Symbol.iterator];//[ɪtə'reɪtə]
 //
-function() {
+;(function(){
+	return;
 	function* a() {
 		console.log(1)
 		yield 11;
@@ -57,4 +58,22 @@ function() {
 	* 生成器是迭代器。
 	*
 	*/
-}()
+})();
+
+//for of 使用函数的方式来实现
+
+(function() {
+
+	return;
+	var a = [1, 2, 3];
+	var aIterator = a[Symbol.iterator]();
+	var next = aIterator.next();
+	while (next.done == false) {
+		console.log(next.value, 'while');
+		next = aIterator.next()
+	}
+
+})()
+
+
+
