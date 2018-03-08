@@ -156,6 +156,7 @@ function lg(...a){
 
 (function(){
 
+	return;
 	function *kk(){
 		let first = yield 1;
 		lg(first)
@@ -290,3 +291,37 @@ console.log(`my name is ${name}`);
 //weakSet weekMap
 //1.weekSet的值和WeeMap的键要是对象.
 //2.不可迭代.
+//
+//
+
+
+//class
+;(function(){
+
+	class A {
+		constructor(a){
+
+		};
+		static a(){
+			console.log('a')
+		};
+		a(){
+			console.log('1')
+		};
+		set b(b){
+			this.__b = b;
+		};
+		get b(){
+			return this.__b;
+		}
+		*c(){}
+	}
+
+	var a = new A();
+
+	lg(a.b = 5)
+	lg(a.b)
+	
+
+
+})();
