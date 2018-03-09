@@ -325,3 +325,62 @@ console.log(`my name is ${name}`);
 
 
 })();
+
+
+
+//promise
+/* 
+ * 1.promise的错误处理。.then(resolve,reject)中的reject中或.catch中。
+ * 会错误冒泡，直到被捕获。比如在一个promise中报错了或reject了。错误会传递下去，直到被后续的then的第二个参数reject函数处理，并且在此之前不会处理中间的then的resolve函数。相当于只要错误没被处理，后面的then返回的都是rejected状态的promise。
+ * 建议总是使用catch方法，而不使用then方法的第二个参数。Promise 内部的错误不会影响到 Promise 外部的代码。
+ * catch方法返回的还是一个 Promise对象。如果没报错，会跳过它直接执行后面的then。catch后面还可以接catch。catch中如果没报错，后面的then还是执行resolve回调。
+ * unhandledRejection和rejectionHandled事件，unhandledRejection表示没有错误处理的回调（一次事件循环内），rejectionHandled表示在新的事件循环中处理了。如果没有catch.也没有reject回调。nodejs下会报错UnhandledPromiseRejectionWarning。可以监测事件process.on('unhandledRejection',fn)。浏览器环境也有这两个事件。可以用dom0的方式或addEventListener的方式来处理。通常用unhandledRejection来记录未处理的错误的promise（map结构），用rejectionHandled来从记录的数据中清除promise。 再加上一个60000或更长的时间对未处理的进行统一处理。
+ * 当一个Promise错误最初未被处理，但是稍后又得到了处理，则会触发rejectionhandled事件（上一个事件循环中还触发了unhandledRejection）。
+ * 2.promise.then()返回的是promise。回调的参数是return的值。当resolve或then()返回新的promise时，promise状态取决于这个返回的promise。
+ * 3.thenable。
+ * 4.将普通对象转为promise对象。
+*/
+var a = Promise.resolve().then(function() {
+	return Promise.reject(6)
+}).then(function() {
+	// return Promise.reject(6)
+	lg('resolve')
+}).then(
+	function() {
+		lg('err then')
+	},
+	function() {
+		lg('reject')
+	}
+).then(
+	function() {
+		lg('resolve')
+	},
+	function() {
+		lg('reject')
+	}
+).catch(function() {
+	lg('err catch')
+}).then(function() {
+	lg('after err catch')
+})
+
+
+var eP = Promise.reject()
+
+process.on('unhandledRejection',function(...a){
+	lg(a)
+});
+
+
+process.on('rejectionHandled',function(...a){
+	lg(a)
+})
+
+setTimeout(function() {
+	eP.catch(function() {
+		lg('delay catch')
+	})
+},1000)
+
+// rejectionHandled与 unhandledRejection
