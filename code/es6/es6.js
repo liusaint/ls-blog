@@ -1,18 +1,6 @@
-
-
-function lg(...a){
-	console.log.apply(console,a);
+function lg(...a) {
+	console.log.apply(console, a);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52,8 +40,10 @@ function lg(...a){
 //$.fn[Symbol.iterator] = Array.prototype[Symbol.iterator];//[ɪtə'reɪtə]
 // for of也可以遍历字符串
 // 普通对象不能用for of。  map对象可以。
-;(function(){
+;
+(function() {
 	return;
+
 	function* a() {
 		console.log(1)
 		yield 11;
@@ -130,7 +120,7 @@ function lg(...a){
 
 		},
 
-		return(){
+		return () {
 
 			console.log('return');
 			return {}
@@ -145,7 +135,7 @@ function lg(...a){
 		// }
 	}
 
-	console.log(a[5]);//这种没有得到支持。
+	console.log(a[5]); //这种没有得到支持。
 
 })();
 
@@ -154,15 +144,16 @@ function lg(...a){
 // yield返回的是带value和done的对象
 // iterator.next()可传入参数.返回到生成器中接着执行.比如ajax执行成功之后接着执行回调.
 
-(function(){
+(function() {
 
 	return;
-	function *kk(){
+
+	function* kk() {
 		let first = yield 1;
 		lg(first)
 		let second = yield first + 2;
 		lg(second)
-		yield second +3;
+		yield second + 3;
 		console.log(second);
 
 	}
@@ -175,31 +166,33 @@ function lg(...a){
 
 
 
-
 	// return;
 
-	function *a(){
+	function* a() {
 		yield 1;
 		var data = yield 8;
 		console.log(data);
 	}
 
 	var iterator = a();
-	console.log(typeof a);//function
-	console.log(iterator.next());//{ value: 1, done: false }
-	console.log(iterator.next());//{ value: 8, done: false }
-	console.log(iterator.next({status:1,data:666}));
+	console.log(typeof a); //function
+	console.log(iterator.next()); //{ value: 1, done: false }
+	console.log(iterator.next()); //{ value: 8, done: false }
+	console.log(iterator.next({
+		status: 1,
+		data: 666
+	}));
 
 	//生成器是迭代器
-	function *c(){
-		var i=5;
-		while(i--){
+	function* c() {
+		var i = 5;
+		while (i--) {
 			yield i;
 		}
 	}
 
 	var iteratorC = c();
-	for(let d of iteratorC){
+	for (let d of iteratorC) {
 		console.log(d)
 	}
 
@@ -207,26 +200,29 @@ function lg(...a){
 
 
 //字符器
-;(function(){
+;
+(function() {
 
-return;
-var name = 'ls';
-console.log(`my name is ${name}`);
+	return;
+	var name = 'ls';
+	console.log(`my name is ${name}`);
 
 
 })();
 
 
 //不定参数
-;(function(){
+;
+(function() {
 	return;
-	function a(a,...b){
-		console.log(arguments);//{ '0': 1, '1': 2, '2': 3 } arguments也还是有效的。
-		console.log(b);//[ 2, 3 ]
-		
+
+	function a(a, ...b) {
+		console.log(arguments); //{ '0': 1, '1': 2, '2': 3 } arguments也还是有效的。
+		console.log(b); //[ 2, 3 ]
+
 	}
-	a(1,2,3)
-	console.log(a.length);//.length不包含不定参数和默认参数
+	a(1, 2, 3)
+	console.log(a.length); //.length不包含不定参数和默认参数
 
 })();
 
@@ -265,10 +261,18 @@ console.log(`my name is ${name}`);
 
 
 	//使用
-	function k({a,b,c}){
-		lg(a);//1
+	function k({
+		a,
+		b,
+		c
+	}) {
+		lg(a); //1
 	}
-	k({a:1,b:2,c:3})
+	k({
+		a: 1,
+		b: 2,
+		c: 3
+	})
 
 	//var [key,val] of [1,2,3]
 	//var [a1,a2] = fa();
@@ -296,32 +300,33 @@ console.log(`my name is ${name}`);
 
 
 //class
-;(function(){
-
+;
+(function() {
+return;
 	class A {
-		constructor(a){
+		constructor(a) {
 
 		};
-		static a(){
+		static a() {
 			console.log('a')
 		};
-		a(){
+		a() {
 			console.log('1')
 		};
-		set b(b){
+		set b(b) {
 			this.__b = b;
 		};
-		get b(){
-			return this.__b;
-		}
-		*c(){}
+		get b() {
+				return this.__b;
+			} *
+			c() {}
 	}
 
 	var a = new A();
 
 	lg(a.b = 5)
 	lg(a.b)
-	
+
 
 
 })();
@@ -338,49 +343,104 @@ console.log(`my name is ${name}`);
  * 当一个Promise错误最初未被处理，但是稍后又得到了处理，则会触发rejectionhandled事件（上一个事件循环中还触发了unhandledRejection）。
  * 2.promise.then()返回的是promise。回调的参数是return的值。当resolve或then()返回新的promise时，promise状态取决于这个返回的promise。
  * 3.thenable。
- * 4.将普通对象转为promise对象。
-*/
-var a = Promise.resolve().then(function() {
-	return Promise.reject(6)
-}).then(function() {
-	// return Promise.reject(6)
-	lg('resolve')
-}).then(
-	function() {
-		lg('err then')
-	},
-	function() {
-		lg('reject')
-	}
-).then(
-	function() {
+ * 4.将普通对象转为promise对象。 传入的是thenable对象，会异步转换状态，由pending变成fullfilled。
+ * 5.Promise.all().then()。的回调的参数的顺序是resolve时间顺序还是传入顺序。在某个promise被处理之后.
+ */
+
+;
+(function() {
+
+return
+	var a = Promise.resolve().then(function() {
+		return Promise.reject(6)
+	}).then(function() {
+		// return Promise.reject(6)
 		lg('resolve')
-	},
-	function() {
-		lg('reject')
-	}
-).catch(function() {
-	lg('err catch')
-}).then(function() {
-	lg('after err catch')
-})
-
-
-var eP = Promise.reject()
-
-process.on('unhandledRejection',function(...a){
-	lg(a)
-});
-
-
-process.on('rejectionHandled',function(...a){
-	lg(a)
-})
-
-setTimeout(function() {
-	eP.catch(function() {
-		lg('delay catch')
+	}).then(
+		function() {
+			lg('err then')
+		},
+		function() {
+			lg('reject')
+		}
+	).then(
+		function() {
+			lg('resolve')
+		},
+		function() {
+			lg('reject')
+		}
+	).catch(function() {
+		lg('err catch')
+	}).then(function() {
+		lg('after err catch')
 	})
-},1000)
 
-// rejectionHandled与 unhandledRejection
+
+	var eP = Promise.reject()
+
+	process.on('unhandledRejection', function(...a) {
+		lg(a)
+	});
+
+
+	process.on('rejectionHandled', function(...a) {
+		lg(a)
+	})
+
+	setTimeout(function() {
+		eP.catch(function() {
+			lg('delay catch')
+		})
+	}, 1000)
+
+	// rejectionHandled与 unhandledRejection
+
+
+	var thenObj = {
+		then: function(resolve) {
+			resolve(77)
+			console.log('then')
+		}
+	}
+
+	var thenP = Promise.resolve(thenObj);
+
+	thenP.then(function() {
+		console.log(110)
+	})
+
+	lg(thenP, 888)
+
+	setTimeout(function() {
+		lg(thenP, 8881)
+	})
+
+
+	lg(Promise.resolve(1))
+	lg(112)
+
+})()
+
+;(function() {
+	//浏览器下是a b
+	//node下是 b a 
+	//所以promise链中返回的promise到底是不是异步展开的。
+	var p3 = new Promise(function(resolve, reject) {
+		resolve('b');
+	})
+	lg(p3)
+	var p1 = new Promise(function(resolve, reject) {
+		resolve(p3);
+	})
+	lg(p1)
+	var p2 = new Promise(function(resolve, reject) {
+		resolve('a');
+	})
+	p1.then(function(a) {
+		lg(a)
+	})
+	p2.then(function(a) {
+		lg(a)
+	})
+})();
