@@ -303,6 +303,9 @@ function lg(...a) {
 //es5与es6在this生成时的不同。p204b
 //super后才可以用this，在constructor中，在子类中。super()与super.getArea()
 //只要有[[Construct]]属性和原型就可以被继承。
+//super在静态方法之中指向父类，在普通方法之中指向父类的原型对象。
+//ES5 是先新建子类的实例对象this，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。比如，Array构造函数有一个内部属性[[DefineOwnProperty]]，用来定义新属性时，更新length属性，这个内部属性无法在子类获取，导致子类的length属性行为不正常。
+//ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。
 ;
 (function() {
 	// return;
