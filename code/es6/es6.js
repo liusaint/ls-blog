@@ -300,26 +300,37 @@ function lg(...a) {
 
 
 //class
+//es5与es6在this生成时的不同。p204b
+//super后才可以用this，在constructor中，在子类中。super()与super.getArea()
+//只要有[[Construct]]属性和原型就可以被继承。
 ;
 (function() {
-return;
+	// return;
 	class A {
 		constructor(a) {
+			
+			if(new.target === A){
+				// throw new Error('这个类不能直接被实例化，只能继承')
+			}
 
 		};
+		//静态方法
 		static a() {
 			console.log('a')
 		};
+		//类方法
 		a() {
 			console.log('1')
 		};
+		//getter.setter
 		set b(b) {
 			this.__b = b;
 		};
 		get b() {
-				return this.__b;
-			} *
-			c() {}
+			return this.__b;
+		}; 
+		//生成器方法
+		*c() {}
 	}
 
 	var a = new A();
@@ -327,9 +338,42 @@ return;
 	lg(a.b = 5)
 	lg(a.b)
 
+	//内建对象的继承。
+	class MyArray extends Array{
 
+	}
+	var myArr = new MyArray(1,2,3);
+	console.log(myArr)
+
+	console.log(myArr.slice());//返回的依然是myArray类型
+
+	//因为Symbol.species
+	class BaseClass{
+		static get [Symbol.species](){
+			return this;
+		}
+
+		constructor(val){
+			this.val = val;
+		}
+
+		clone(){
+			return new this.constructor[Symbol.species](this.val);
+			// return new this.constructor(this.val)
+		}
+	}
+
+	class SubClass extends BaseClass{
+
+	}
+
+	var sub = new SubClass(123);
+	lg(sub)
+	lg(sub.clone())
 
 })();
+
+
 
 
 
@@ -423,6 +467,8 @@ return
 })()
 
 ;(function() {
+
+	return;
 	//浏览器下是a b
 	//node下是 b a 
 	//所以promise链中返回的promise到底是不是异步展开的。
