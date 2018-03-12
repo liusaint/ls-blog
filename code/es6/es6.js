@@ -306,9 +306,11 @@ function lg(...a) {
 //super在静态方法之中指向父类，在普通方法之中指向父类的原型对象。
 //ES5 是先新建子类的实例对象this，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。比如，Array构造函数有一个内部属性[[DefineOwnProperty]]，用来定义新属性时，更新length属性，这个内部属性无法在子类获取，导致子类的length属性行为不正常。
 //ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。
+//子类的原型指向父类
+//子类的原型的原型指向父亲的原型。
 ;
 (function() {
-	// return;
+	return;
 	class A {
 		constructor(a) {
 			
@@ -342,6 +344,10 @@ function lg(...a) {
 	lg(a.b)
 
 	//内建对象的继承。
+	//为什么继承内建类可以了。原生this到底哪些属性不能访问??????
+	//https://www.cnblogs.com/jyuf/p/8289087.html
+	//直接返回this.constructor也没有什么问题， 原先父类返回自身的方法能够返回现在的派生类， 而不是父类自己， 那么为什么不直接使用this.constructor呢？ 因为这个必须要通过一种方式让子类可以进行自由控制， 写死之后如果我确实不想要返回自身的实例， 而是返回父类的实例呢？ 那么写死后就没有任何办法进行修改了， 如果MyArray继承了Array， 那么slice永远都只能返回MyArray， 而不能返回一个Array的实例。
+	//super() 静态方法中的super。原型方法中的super。
 	class MyArray extends Array{
 
 	}
@@ -375,6 +381,7 @@ function lg(...a) {
 	lg(sub.clone())
 
 })();
+
 
 
 
