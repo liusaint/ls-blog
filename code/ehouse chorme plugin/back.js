@@ -22,10 +22,16 @@ var eHouse = {
 	setClick:function(){
 		var that = this;
 		this.timer = setTimeout(function(){
-			console.log(1);
-			clear(this.timer);
+			
+
+			//todo
+			//1.等倒计时以及点
+			//2.点确定。
+
+
+			clearTimeout(this.timer);
 			that.setClick();
-		})
+		},30);
 	}
 
 
