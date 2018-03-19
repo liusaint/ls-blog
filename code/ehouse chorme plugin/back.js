@@ -28,9 +28,16 @@ var eHouse = {
 			//1.等倒计时以及点
 			//2.点确定。
 
-
+			//如果出现了确定，则点击。
 			clearTimeout(this.timer);
-			that.setClick();
+			if($(":contains(确定):visible:last").length>0){
+				$(":contains(确定):visible:last")[0].click();
+			}else{
+				that.setClick();
+			}
+
+			
+			
 		},30);
 	}
 
