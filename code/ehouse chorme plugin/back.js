@@ -84,7 +84,7 @@
 		var page = $("li.selected a:contains(房源)").length > 0;
 		if (page && class_confirm && class_confirm[0]) {
 			//加一个保险。加价那种不自动选择。
-			if($(":contains(您确定要加价吗)").length<1){
+			if($(":contains(您确定要加价吗)").length<1 && $(":contains(封顶价格)").length<1){
 				class_confirm[0].click();
 				interVal = 1000;
 			}
