@@ -19,6 +19,9 @@
 	hideTrs: function() {
 		// $('table tr :contains(已成交)').closest('tr').hide();
 	},
+	checkPage:function(){
+		return (location.href.indexOf('fang.vanke.com/Follow/Target?btype=3')>-1 || location.href.indexOf('http://fang.vanke.com/ActivityTarget/Floor')>-1)
+	},
 
 	//提前1s钟刷新页面。
 	refresh: function() {
@@ -51,7 +54,7 @@
 		var that = this;
 		var interVal = 5;
 
-		var thePage = $("li.selected a:contains(房源)").length > 0;
+		var thePage = this.checkPage();
 
 		btn_group = $("#btn_group").find("a:visible");
 
@@ -81,7 +84,7 @@
 		var interVal = 5;
 
 		var class_confirm = document.getElementsByClassName('btn btn-default btn-primary');
-		var page = $("li.selected a:contains(房源)").length > 0;
+		var page = this.checkPage();
 		if (page && class_confirm && class_confirm[0]) {
 			//加一个保险。加价那种不自动选择。
 			if($(":contains(您确定要加价吗)").length<1 && $(":contains(封顶价格)").length<1){
