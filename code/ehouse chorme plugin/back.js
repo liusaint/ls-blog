@@ -36,10 +36,21 @@
 			var now = new Date().getTime();
 			var beginTime = new Date(this.beginTime).getTime();
 			var timeDiff = beginTime - now;
-			if (timeDiff < 300 && timeDiff>0) {
+
+			//在18到20s的时候提前刷新一下。
+			if (timeDiff < 20000 && timeDiff>18000) {
 				$("#pageslideRefresh")[0].click();
 				//刷新
 				interVal = 2000;
+				console.log('refresh1');
+			}
+
+			//提前300ms发送请求。
+			if (timeDiff < 300 && timeDiff>0) {
+				$("#pageslideRefresh")[0].click();
+				//刷新
+				interVal = 20000;
+				console.log('refresh2');
 			}
 
 		}
