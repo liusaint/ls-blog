@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "E",
+    "version": "1.0",
+    "description": "抢房子的插件",
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts":[
+        {
+            "matches": ["http://*/*","https://*/*"],
+            "js": ["jquery.js","back.js"],
+            "run_at":"document_end"
+        }
+    ],
+    "permissions": [
+        "tabs"
+    ]
+}
