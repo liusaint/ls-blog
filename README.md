@@ -6,6 +6,7 @@
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
 #### 2018.5
+* [大型canvas 2d应用的事件处理](https://github.com/liusaint/ls-blog/issues/26)
 * [二叉树遍历（前序，后序，中序，层次）递归与迭代实现JavaScript](https://github.com/liusaint/ls-blog/issues/25)
 
 #### 2018.3
