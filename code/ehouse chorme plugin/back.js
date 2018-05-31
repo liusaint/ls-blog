@@ -78,7 +78,7 @@
 		if (btnVisible && thePage && class_confirm.length < 1) {
 			btn_group[0].click();
 			if(!$(btn_group[0]).hasClass('add_price_start')){
-				interVal = 1500;
+				interVal = 1000;
 			}			
 		}
 
@@ -113,6 +113,14 @@
 
 
 
+	},
+	checkPageSize:function(){
+		// var pageDom = $(".pagesize:visible");
+		// if(this.checkPage()&&pageDom.length>0){
+		// 	if(pageDom.val()!=50){
+		// 		pageDom.val(50).trigger('change')
+		// 	}
+		// }
 	}
 
 
@@ -133,6 +141,7 @@ chrome.extension.onRequest.addListener(
 			eHouse.setConfirmClick();
 			eHouse.setClick();
 			eHouse.refresh();
+			eHouse.checkPageSize()
 			console.log('run')
 		}
 

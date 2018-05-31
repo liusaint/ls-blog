@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "A",
+    "name": "6",
     "version": "1.0",
     "description": "新标签打开链接",
     "browser_action": {

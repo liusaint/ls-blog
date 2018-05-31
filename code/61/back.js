@@ -3,7 +3,8 @@ var app = {
 
 	init() {
 		this.video = document.querySelector('video');
-		this.bindEvent();
+		this.inited = false;
+		this.tryInit();
 		this.musics = [
 			'http://other.web.nm01.sycdn.kuwo.cn/resource/n1/73/61/1963532644.mp3',
 			'http://other.web.rh01.sycdn.kuwo.cn/resource/n3/22/97/3591423245.mp3'
@@ -43,7 +44,14 @@ var app = {
 		var parent = $(video).parent();
 		parent.css('position', 'relative');
 		$('.ls_ad').remove();
-		$(parent).append('<div class="ls_ad" style="position:fixed;right:0;bottom:0;width:60%;height:80%;z-index:999;">1234123123123</div>');
+		$(parent).append(`<div class="ls_ad" style="    position: absolute;
+    left: 20%;
+    background: #fff;
+
+    width: 60%;
+    height: 60%;
+    z-index: 999;
+    top: 50px;">六一快乐</div>`);
 		this.createMusic();
 		if ($("#ls_music").length < 1) {
 			$(parent).append(this.musicStr);
@@ -56,6 +64,21 @@ var app = {
 	removeAd() {
 		$('.ls_ad').remove();
 		$("#ls_music")[0].pause();
+	},
+	tryInit(){
+		var that = this;
+		if(that.inited){
+			return;
+		}
+		setTimeout(function(){
+			if($('video').length>0){
+				that.bindEvent();
+				that.inited = true;
+			}else{
+				that.tryInit();
+			}
+			
+		},100)
 	}
 
 };
