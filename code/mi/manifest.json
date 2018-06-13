@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "抢",
+    "version": "1.0",
+    "description": "抢小米手机",
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts":[
+        {
+            "matches": ["http://*/*","https://*/*","file:///*/*"],
+            "js": ["jquery.js","back.js"],
+            "run_at":"document_end"
+        }
+    ],
+    "permissions": [
+        "tabs"
+    ]
+}
