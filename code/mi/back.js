@@ -1,3 +1,7 @@
+//1.核对时间
+//2.将系统时间提前10s。
+
+
 var app = {
 	timer: '',
 	init: function() {
@@ -17,48 +21,61 @@ var app = {
 	},
 	//商品页面做的事情
 	detailFn() {
-		//选择版本 
-		$(".J_step.pro-choose[data-index=0] ul>li").eq(1)[0] && $(".J_step.pro-choose[data-index=0] ul>li").eq(1)[0].click();
-		//选择颜色
-		$(".J_step.pro-choose[data-index=1] ul>li").eq(0)[0] && $(".J_step.pro-choose[data-index=1] ul>li").eq(0)[0].click();
-		//选择保险 
-		if (!$(".J_service.pro-choose[data-index=0] ul>li").eq(1).hasClass('active')) {
-			$(".J_service.pro-choose[data-index=0] ul>li").eq(1)[0] && $(".J_service.pro-choose[data-index=0] ul>li").eq(1)[0].click();
+
+		//关闭可能的弹窗
+		$(".modal-body .btn.btn-primary:visible").each(function(index, el) {
+			el.click();
+		});
+		$("#J_miAlertConfirm")[0] && $("#J_miAlertConfirm")[0].click();
+
+
+		//版本
+		var levelDom = $(".J_step.pro-choose[data-index=0] ul>li").eq(1)[0];
+		//颜色
+		var colorDom = $(".J_step.pro-choose[data-index=1] ul>li").eq(0)[0];
+		//保险
+		var safeDom = $(".J_service.pro-choose[data-index=0] ul>li").eq(0)[0];
+		//当这几个都加载出来的时候才执行点击加入。避免购物车页面出现多项商品。
+		if (levelDom && colorDom && safeDom) {
+			levelDom.click();
+			colorDom.click();
+			if (!$(safeDom).hasClass('active')) {
+				safeDom.click();
+			}
+			//点击加入购物车
+			$("#J_buyBtnBox a")[0] && $("#J_buyBtnBox a")[0].click();
 		}
 
-		//点击按钮
-		$("#J_buyBtnBox a")[0] && $("#J_buyBtnBox a")[0].click();
-		$("#J_miAlertConfirm")[0] && $("#J_miAlertConfirm")[0].click();
+
 	},
 	//跳转到购物车页面
-	goCart(){
-		$(".J_actBox a:contains('去购物车结算')")[0]&&$(".J_actBox a:contains('去购物车结算')")[0].click();
+	goCart() {
+		$(".J_actBox a:contains('去购物车结算')")[0] && $(".J_actBox a:contains('去购物车结算')")[0].click();
 	},
 	//购物车页面的事情 
-	cartFn(){
+	cartFn() {
 		//购物车中有大于1件商品，删除
 		$("#J_cartListBody .item-box:gt(0)").find(".J_delGoods").each(function(index, el) {
 			el.click();
 			//确认删除按钮
-			$("#J_alertOk")[0]&&$("#J_alertOk")[0].click();
+			$("#J_alertOk")[0] && $("#J_alertOk")[0].click();
 
 		});
 		//确认删除按钮
 		$("#J_alertOk")[0] && $("#J_alertOk")[0].click();
 		//将每一条的数量减少到1。
 		$(".J_minus").each(function(index, el) {
-			el.click();
-			el.click();
-			el.click();
-			el.click();
-			el.click();
+			//数量不为1就减少。
+			while($(el).next('input').val()!=1){
+				el.click();
+			}
 		});
 		//去结算
 		$("#J_goCheckout")[0] && $("#J_goCheckout")[0].click();
 	},
 	//选地址，下单页面
-	orderFn(){
-		if(document.querySelector('.J_addressItem')){
+	orderFn() {
+		if (document.querySelector('.J_addressItem')) {
 			document.querySelector('.J_addressItem').click();
 			document.querySelector("#J_checkoutToPay") && document.querySelector("#J_checkoutToPay").click();
 		}
