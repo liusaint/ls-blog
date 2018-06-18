@@ -1,5 +1,7 @@
-//1.核对时间
-//2.将系统时间提前10s。
+//1.核对时间。与互联网时间同步。
+//2.处于登录状态。
+
+
 
 
 var app = {
@@ -10,9 +12,15 @@ var app = {
 	setTimer: function() {
 		this.timer && clearTimeout(this.timer);
 		try {
+			//这里就没有做具体哪个页面的判断了。暂时不会相互影响。
+			
+			//详情页面做的事
 			this.detailFn();
+			//中间页，进入购物车
 			this.goCart();
+			//购物车页面
 			this.cartFn();
+			//提交订单页面。
 			this.orderFn();
 		} catch (e) {
 			// 还没加载出来
@@ -20,6 +28,7 @@ var app = {
 		this.timer = setTimeout(this.setTimer.bind(this), 30);
 	},
 	//商品页面做的事情
+	//在选项加载出来之后选择然后不断点击加入购物车。
 	detailFn() {
 
 		//关闭可能的弹窗
@@ -53,14 +62,17 @@ var app = {
 
 		if ($(".J_actBox a:contains('去购物车结算')")[0]) {
 			$(".J_actBox a:contains('去购物车结算')")[0].click();
-			//观察到卡了一s在这里，所以加上这一句
+			//观察到卡了一s在这里，所以加上这一句，上面那句其实就没有用了。
 			location.href = 'https://static.mi.com/cart/';
-			//跑一个错误，避免再次执行上面那一句。 
+			//跑一个错误，中断线程。不再生成定时器。
 			throw new Error('abc');
 		}
 	},
-	//购物车页面的事情 
+	//购物车页
+	//第一个页面可能发了多次加入购物车的请求。 所以在这个页面要把多余的项以及数量删除。
 	cartFn() {
+		//阻止弹窗,避免阻断流程
+		window.alert = function(){}
 		//购物车中有大于1件商品，删除
 		$("#J_cartListBody .item-box:gt(0)").find(".J_delGoods").each(function(index, el) {
 			el.click();
@@ -83,15 +95,15 @@ var app = {
 				el.click();
 			}
 		});
-		//去结算
+		//去结算。因为上面的数量减少操作是异步的。所以这里设置一个延时，让上面的操作生效之后再进行这个操作。
 		setTimeout(function() {
 			$("#J_goCheckout")[0] && $("#J_goCheckout")[0].click();
 		}, interval);
-		//如果检测到这句话就刷新购物车页面。
-		//因为系统问题或者
-		if ($('h3:contains(抱歉，以下商品已经失效或者暂时售罄):visible').length > 0) {
+		//到了购物车页面甚至下订单的页面依然可能会出现售罄的情况。这个时候不要放弃，重新刷新购物车页面继续进行操作。还是有可能刷到的。
+		if ($('h3:contains(抱歉，以下商品已经失效或者暂时售罄):visible').length > 0||$('a:contains(到货提醒):visible').length > 0||$("dt:contains(选中的商品已经全部失效或者暂时售罄):visible").length>0||$("#J_goCheckout").hasClass('btn-disabled')) {
+			//避免请求太过频繁。
 			setTimeout(function() {
-				location.reload();
+				location.href = 'https://static.mi.com/cart/';
 			}, 500)
 
 		}
@@ -103,6 +115,8 @@ var app = {
 			document.querySelector('.J_addressItem').click();
 			document.querySelector("#J_checkoutToPay") && document.querySelector("#J_checkoutToPay").click();
 		}
+		$("button:contains(确定):visible").click();
+		$(".modal-backdrop:visible").remove();
 	}
 }
 
