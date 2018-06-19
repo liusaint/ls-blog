@@ -42,15 +42,15 @@ var app = {
 		var levelDom = $(".J_step.pro-choose[data-index=0] ul>li").eq(1)[0];
 		//颜色 白色
 		var colorDom = $(".J_step.pro-choose[data-index=1] ul>li").eq(1)[0];
-		//保险 
-		var safeDom = $(".J_service.pro-choose[data-index=0] ul>li").eq(1)[0];
+		//保险。不选保险了。非必要项。碎屏险可以补买的。
+		// var safeDom = $(".J_service.pro-choose[data-index=0] ul>li").eq(1)[0];
 		//当这几个都加载出来的时候才执行点击加入。避免购物车页面出现多项商品。
-		if (levelDom && colorDom && safeDom) {
+		if (levelDom && colorDom ) {
 			levelDom.click();
 			colorDom.click();
-			if (!$(safeDom).hasClass('active')) {
-				safeDom.click();
-			}
+			// if (!$(safeDom).hasClass('active')) {
+			// 	safeDom.click();
+			// }
 			//点击加入购物车
 			$("#J_buyBtnBox a")[0] && $("#J_buyBtnBox a")[0].click();
 		}
