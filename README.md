@@ -5,6 +5,9 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2018.6
+* [使用chrome浏览器插件抢小米8](https://github.com/liusaint/ls-blog/blob/master/code/mi/readme.md)
+
 #### 2018.5
 * [前端基本功之从大型项目中迅速定位修改位置](https://github.com/liusaint/ls-blog/issues/27)
 * [大型canvas 2d应用的事件处理](https://github.com/liusaint/ls-blog/issues/26)
