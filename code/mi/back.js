@@ -1,9 +1,6 @@
 //1.核对时间。与互联网时间同步。
 //2.处于登录状态。
 
-
-
-
 var app = {
 	timer: '',
 	init: function() {
@@ -39,9 +36,9 @@ var app = {
 
 
 		//版本 128g
-		var levelDom = $(".J_step.pro-choose[data-index=0] ul>li").eq(1)[0];
+		var levelDom = $(".J_step.pro-choose[data-index=0] ul>li").eq(0)[0];
 		//颜色 白色
-		var colorDom = $(".J_step.pro-choose[data-index=1] ul>li").eq(1)[0];
+		var colorDom = $(".J_step.pro-choose[data-index=1] ul>li").eq(0)[0];
 		//保险。不选保险了。非必要项。碎屏险可以补买的。
 		// var safeDom = $(".J_service.pro-choose[data-index=0] ul>li").eq(1)[0];
 		//当这几个都加载出来的时候才执行点击加入。避免购物车页面出现多项商品。
