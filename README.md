@@ -7,6 +7,7 @@
 
 #### 2018.6
 * [使用chrome浏览器插件抢小米8](https://github.com/liusaint/ls-blog/blob/master/code/mi/readme.md)
+* [常见的web攻击方式及预防](https://github.com/liusaint/ls-blog/issues/29)
 
 #### 2018.5
 * [前端基本功之从大型项目中迅速定位修改位置](https://github.com/liusaint/ls-blog/issues/27)
