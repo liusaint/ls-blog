@@ -5,6 +5,9 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2018.8
+* [微信 jssdk本地调试方案](https://github.com/liusaint/ls-blog/issues/30)
+
 #### 2018.6
 * [使用chrome浏览器插件抢小米8](https://github.com/liusaint/ls-blog/blob/master/code/mi/readme.md)
 * [常见的web攻击方式及预防](https://github.com/liusaint/ls-blog/issues/29)
