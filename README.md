@@ -5,6 +5,9 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2019.01
+* [前后端分离项目中使用富文本编辑器UEditor](https://github.com/liusaint/ls-blog/issues/34)
+
 #### 2018.11
 * [React使用小结](https://github.com/liusaint/ls-blog/issues/33)
 * [ant-design-pro 使用总结—自定义打包构建配置](https://github.com/liusaint/ls-blog/issues/32)
