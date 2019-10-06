@@ -5,6 +5,9 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2019.10
+* [动物餐厅 小游戏 自助添加物品](https://github.com/liusaint/ls-blog/issues/37)
+
 #### 2019.04
 * [aeneas实现音频强制对齐](https://github.com/liusaint/ls-blog/issues/36)
 
