@@ -5,6 +5,10 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2020.4
+* [学习类产品100+资源加载体验优化 ](https://github.com/liusaint/ls-blog/issues/38)
+
+
 #### 2019.10
 * [动物餐厅 小游戏 自助添加物品](https://github.com/liusaint/ls-blog/issues/37)
 
