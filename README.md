@@ -5,6 +5,9 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2020.5
+* [微信小程序填坑 视频篇](https://github.com/liusaint/ls-blog/issues/40)
+
 #### 2020.4
 * [英语字母笔画绘制功能解析](https://github.com/liusaint/ls-blog/issues/39)
 * [学习类产品100+资源加载体验优化 ](https://github.com/liusaint/ls-blog/issues/38)
