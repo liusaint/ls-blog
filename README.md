@@ -5,6 +5,10 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2020.8
+* [分帧加载 异步任务分解](https://github.com/liusaint/ls-blog/issues/41)
+
+
 #### 2020.5
 * [微信小程序填坑 视频篇](https://github.com/liusaint/ls-blog/issues/40)
 
