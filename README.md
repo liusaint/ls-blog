@@ -5,6 +5,9 @@
 
 文章基本是写在项目的issues中。欢迎star，一起学习！
 
+#### 2021.5
+* [逆向破解某视频网站app版本和网页版本vip](https://github.com/liusaint/ls-blog/issues/44)
+
 #### 2020.9
 * [微信小程序填坑篇 2](https://github.com/liusaint/ls-blog/issues/42)
 
