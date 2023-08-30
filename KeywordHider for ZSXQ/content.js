@@ -9,6 +9,8 @@ function hideKeywords() {
         let text = content.innerText;
         if (keywords.some((keyword) => text.includes(keyword))) {
           element.style.display = 'none';
+        }else{
+          element.style.display = 'block';
         }
       }
     });
@@ -17,6 +19,15 @@ function hideKeywords() {
 
 // Auto-run when the content script is injected
 hideKeywords();
+
+// New code
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.action === "reloadKeywords") {
+      hideKeywords();
+    }
+  }
+);
 
 // To handle dynamic loading
 const observer = new MutationObserver(hideKeywords);

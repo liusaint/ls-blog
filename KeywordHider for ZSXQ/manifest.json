@@ -10,5 +10,7 @@
       "js": ["content.js"]
     }
   ],
-  "options_page": "options.html"
+  "action": {
+    "default_popup": "popup.html"
+  }
 }
