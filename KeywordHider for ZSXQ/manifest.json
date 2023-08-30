@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "KeywordHider for ZSXQ",
+  "version": "1.0",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["https://wx.zsxq.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://wx.zsxq.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "options_page": "options.html"
+}
