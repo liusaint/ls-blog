@@ -6,8 +6,8 @@ function hideKeywords() {
     elements.forEach((element) => {
       let content = element.querySelector('.content');
       if (content) {
-        let text = content.innerText;
-        if (keywords.some((keyword) => text.includes(keyword))) {
+        let text = content.innerText.toLowerCase(); // convert to lowercase
+        if (keywords.some((keyword) => text.includes(keyword.toLowerCase()))) { // convert keyword to lowercase
           element.style.display = 'none';
         }else{
           element.style.display = 'block';
