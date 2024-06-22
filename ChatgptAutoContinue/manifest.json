@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Clicker for ChatGPT",
+  "version": "1.0",
+  "description": "Automatically clicks a button on chatgpt.com",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "webNavigation",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
