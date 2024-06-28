@@ -1,56 +1,55 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    width: 500px;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-  }
-  
-  input[type="text"], input[type="checkbox"] {
-    padding: 8px;
-    font-size: 14px;
-    width: calc(100% - 16px);
-  }
-  
-  button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  #status {
-    margin-top: 10px;
-    color: green;
-    text-align: center;
-  }
-  
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 500px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input[type="text"], input[type="checkbox"] {
+  padding: 8px;
+  font-size: 14px;
+  width: calc(100% - 16px);
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#status {
+  margin-top: 10px;
+  color: green;
+  text-align: center;
+}
