@@ -3,7 +3,10 @@ function navigatePage(direction) {
     const url = new URL(window.location.href);
     const siteConfig = data.sites[url.host];
     if (siteConfig && siteConfig.enabled) {
-      const selector = direction === "next" ? siteConfig.nextSelector : siteConfig.prevSelector;
+      const selector =
+        direction === "next"
+          ? siteConfig.nextSelector
+          : siteConfig.prevSelector;
       const button = document.querySelector(selector);
       if (button) {
         button.click();
@@ -16,13 +19,25 @@ function navigatePage(direction) {
 
 function updateDocumentTitle() {
   const url = new URL(window.location.href);
-  debugger
+
   if (url.host === "web.cafe") {
-    debugger
     const topicElement = document.querySelector(".topic.curr .topic-title");
-    const dateElement = document.querySelector(".topic.curr .topic-meta:nth-child(2)");
-    if (topicElement && dateElement) {
-      document.title = `${topicElement.innerText} - ${dateElement.innerText}`;
+    const dateElement = document.querySelector(
+      ".topic.curr .topic-meta:nth-child(2)"
+    );
+    const messageNumElement = document.querySelector(
+      ".topic.curr .topic-meta:nth-child(3)"
+    );
+    if (topicElement && dateElement && messageNumElement) {
+      document.title = `${topicElement.innerText}-${String(parseInt(messageNumElement.innerText))}-${
+        dateElement.innerText
+      }`;
+      document
+        .querySelector(".topic.curr")
+        .setAttribute("style", "background:#333;color:#fff");
+      document
+        .querySelector(".topic.curr .topic-title")
+        .setAttribute("style", "color:#fff");
     }
   }
 }
@@ -44,7 +59,6 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
     updateDocumentTitle();
-    setTimeout(updateDocumentTitle, 1000);
   });
 } else {
   updateDocumentTitle();
