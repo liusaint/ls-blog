@@ -1,0 +1,1 @@
+chatgpt 自动continue 插件
