@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "URL Age Checker",
+  "version": "1.0",
+  "description": "Checks the creation date of URLs on any webpage and highlights those created within the last 6 months.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "https://whois.4.cn/"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://sem.3ue.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "host_permissions": [
+    "https://whois.4.cn/"
+  ],
+  "icons": {
+
+  }
+}
