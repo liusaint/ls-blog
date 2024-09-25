@@ -6,18 +6,14 @@
   "permissions": [
     "activeTab",
     "storage",
-    "https://whois.4.cn/"
+    "scripting"
   ],
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["*://sem.3ue.com/*"],
-      "js": ["content.js"],
-      "css": ["styles.css"]
-    }
-  ],
+  "action": {
+    "default_title": "Check URL Ages"
+  },
   "host_permissions": [
     "https://whois.4.cn/"
   ],

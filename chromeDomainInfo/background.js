@@ -16,6 +16,17 @@ async function getUrlCreationDate(url) {
   }
 }
 
+chrome.action.onClicked.addListener((tab) => {
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['content.js']
+  });
+  chrome.scripting.insertCSS({
+    target: { tabId: tab.id },
+    files: ['styles.css']
+  });
+});
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.url) {
     getUrlCreationDate(message.url).then((creationDate) => {

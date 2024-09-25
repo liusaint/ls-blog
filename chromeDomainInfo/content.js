@@ -70,7 +70,7 @@ async function highlightRecentUrls() {
       if (domainInfo) {
         const { creationDate } = domainInfo;
         const formattedDate = new Date(creationDate).toLocaleDateString();
-        link.textContent = `${textContent} (Created: ${formattedDate})`;
+        link.textContent = `${textContent} (${formattedDate})`;
         if (isRecent(creationDate)) {
           link.classList.add('recent-url');
         }
@@ -80,5 +80,5 @@ async function highlightRecentUrls() {
   console.log(`Found ${count} URLs with domain information.`);
 }
 
-// Run the highlight function after 5 seconds
-setTimeout(highlightRecentUrls, 5000);
+// 立即执行 highlightRecentUrls 函数
+highlightRecentUrls();
