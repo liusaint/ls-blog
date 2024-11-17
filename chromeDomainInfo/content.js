@@ -56,23 +56,41 @@ async function getDomainInfo(domain) {
 // Function to highlight recent URLs and append creation date
 async function highlightRecentUrls() {
   const domainRegex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const links = document.querySelectorAll('a[href]');
+  const links = document.querySelectorAll('a[href], a.link-out');
   console.log(`Found ${links.length} links on the page.`);
   let count = 0;
 
   for (const link of links) {
-    const textContent = link.textContent.trim();
-    const domain = extractDomain(textContent);
+    let textContent;
+    let targetElement;
 
-    if (domainRegex.test(domain) && !isSecondLevelDomain(domain)) {
-      count++;
-      const domainInfo = await getDomainInfo(domain);
-      if (domainInfo) {
-        const { creationDate } = domainInfo;
-        const formattedDate = new Date(creationDate).toLocaleDateString();
-        link.textContent = `${textContent} (${formattedDate})`;
-        if (isRecent(creationDate)) {
-          link.classList.add('recent-url');
+    if (link.classList.contains('link-out')) {
+      // 查找相邻的带有 TextContainer- 前缀的 span 元素
+      const parentDiv = link.parentElement;
+      if (parentDiv) {
+        const span = parentDiv.querySelector('span[class*="TextContainer-"]');
+        if (span) {
+          textContent = span.textContent.trim();
+          targetElement = span;
+        }
+      }
+    } else {
+      textContent = link.textContent.trim();
+      targetElement = link;
+    }
+
+    if (textContent) {
+      const domain = extractDomain(textContent);
+      if (domainRegex.test(domain) && !isSecondLevelDomain(domain)) {
+        count++;
+        const domainInfo = await getDomainInfo(domain);
+        if (domainInfo && targetElement) {
+          const { creationDate } = domainInfo;
+          const formattedDate = new Date(creationDate).toLocaleDateString();
+          targetElement.textContent = `${textContent} (${formattedDate})`;
+          if (isRecent(creationDate)) {
+            targetElement.classList.add('recent-url');
+          }
         }
       }
     }
