@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Google Trends Categories</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+        .tree-node {
+            margin: 4px 0;
+            padding-left: 20px;
+        }
+        .node-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            font-size: 14px;
+            padding: 4px 0;
+            min-height: 20px;
+        }
+        .checkbox {
+            margin: 3px 3px 0 0;
+            flex-shrink: 0;
+            width: auto;
+            padding: 0;
+        }
+        .expander {
+            cursor: pointer;
+            user-select: none;
+            width: 16px;
+            display: inline-block;
+            text-align: center;
+            color: #666;
+            margin: 2px 2px 0 0;
+            flex-shrink: 0;
+        }
+        .node-name {
+            margin-top: 2px;
+            word-break: break-all;
+            flex-grow: 1;
+        }
+        .options-panel {
+            margin-bottom: 16px;
+            padding: 16px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+        .option-group {
+            margin-bottom: 12px;
+        }
+        .option-group:last-child {
+            margin-bottom: 0;
+        }
+        .option-label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #333;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #409eff;
+        }
+        .search-input {
+            margin-bottom: 8px;
+        }
+        .open-selected {
+            width: 100%;
+            margin-top: 16px;
+            background: #409eff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .open-selected:hover {
+            background: #66b1ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="options-panel">
+        <div class="option-group">
+            <label class="option-label">时间范围</label>
+            <select id="timeRange"></select>
+        </div>
+        <div class="option-group">
+            <label class="option-label">数据来源</label>
+            <select id="dataSource"></select>
+        </div>
+        <div class="option-group">
+            <label class="option-label">国家/地区</label>
+            <input type="text" id="geoSearch" class="search-input" placeholder="搜索国家/地区...">
+            <select id="geoRegion"></select>
+        </div>
+    </div>
+
+    <div id="categoryTree"></div>
+    <button class="open-selected" onclick="openSelected()">打开选中项</button>
+
+    <script type="module" src="sidepanel.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+.container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.tree-container {
+    margin: 20px 0;
+}
+
+.custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+}
+
+.node-actions {
+    margin-left: 20px;
+}
+
+.node-actions .el-button {
+    margin-left: 8px;
+}
+
+.open-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.open-btn:hover {
+    background-color: #3367d6;
+}

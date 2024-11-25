@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Google Trends Helper",
+  "version": "1.0",
+  "description": "Google Trends分类查看助手",
+  "permissions": [
+    "sidePanel",
+    "tabs"
+  ],
+  "action": {
+    "default_title": "Google Trends Helper"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "https://trends.google.com/*"
+  ]
+}
