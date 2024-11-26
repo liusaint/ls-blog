@@ -76,15 +76,21 @@ function openSelected() {
     const dataSource = document.getElementById('dataSource').value;
     const geoRegion = document.getElementById('geoRegion').value;
 
-    const url = new URL('https://trends.google.com/trends/explore');
-    url.searchParams.append('date', timeRange);
-    if (dataSource) url.searchParams.append('gprop', dataSource);
-    if (geoRegion) url.searchParams.append('geo', geoRegion);
-    url.searchParams.append('cat', selectedCategories.join(','));
-
-    chrome.tabs.create({ url: url.toString() });
+    // 为每个选中的分类创建一个新标签页
+    selectedCategories.forEach(category => {
+        const url = new URL('https://trends.google.com/trends/explore');
+        // 直接使用原始值，searchParams.append 会自动进行编码
+        url.searchParams.append('date', timeRange);
+        if (dataSource) url.searchParams.append('gprop', dataSource);
+        // 只有当不是全球时才添加 geo 参数
+        if (geoRegion && geoRegion.toLowerCase() !== 'global') {
+            url.searchParams.append('geo', geoRegion);
+        }
+        url.searchParams.append('cat', category);
+        
+        chrome.tabs.create({ url: url.toString() });
+    });
 }
-window.openSelected = openSelected;
 
 // 渲染树节点
 function renderTree(node, container) {
@@ -172,9 +178,12 @@ function updateParentCheckbox(checkbox) {
 document.addEventListener('DOMContentLoaded', () => {
     // 初始化选项
     initializeOptions();
-
-    // 渲染分类树
-    const container = document.getElementById('categoryTree');
-    const transformedData = transformData(categoryData);
-    renderTree(transformedData, container);
+    
+    // 初始化树
+    const treeContainer = document.getElementById('categoryTree');
+    const rootNode = transformData(categoryData);
+    renderTree(rootNode, treeContainer);
+    
+    // 添加按钮点击事件监听器
+    document.getElementById('openSelectedBtn').addEventListener('click', openSelected);
 });
