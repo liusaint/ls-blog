@@ -5,7 +5,8 @@
   "description": "Google Trends分类查看助手",
   "permissions": [
     "sidePanel",
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "action": {
     "default_title": "Google Trends Helper"

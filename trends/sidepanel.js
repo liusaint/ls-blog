@@ -10,6 +10,58 @@ function transformData(node) {
     }
 }
 
+// 保存状态到 storage
+async function saveState() {
+    const state = {
+        timeRange: document.getElementById('timeRange').value,
+        dataSource: document.getElementById('dataSource').value,
+        geoRegion: document.getElementById('geoRegion').value,
+        selectedCategories: Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(cb => cb.dataset.id)
+            .filter(id => id),
+        expandedNodes: Array.from(document.querySelectorAll('.expander'))
+            .filter(exp => exp.textContent === '-')
+            .map(exp => exp.parentElement.querySelector('input[type="checkbox"]').dataset.id)
+    };
+    await chrome.storage.local.set({ trendsState: state });
+}
+
+// 从 storage 恢复状态
+async function restoreState() {
+    const { trendsState } = await chrome.storage.local.get('trendsState');
+    if (!trendsState) return;
+
+    // 恢复选项值
+    if (trendsState.timeRange) {
+        document.getElementById('timeRange').value = trendsState.timeRange;
+    }
+    if (trendsState.dataSource) {
+        document.getElementById('dataSource').value = trendsState.dataSource;
+    }
+    if (trendsState.geoRegion) {
+        document.getElementById('geoRegion').value = trendsState.geoRegion;
+    }
+
+    // 恢复选中的分类和展开状态
+    trendsState.selectedCategories?.forEach(id => {
+        const checkbox = document.querySelector(`input[type="checkbox"][data-id="${id}"]`);
+        if (checkbox) {
+            checkbox.checked = true;
+            updateParentCheckbox(checkbox);
+        }
+    });
+
+    trendsState.expandedNodes?.forEach(id => {
+        const checkbox = document.querySelector(`input[type="checkbox"][data-id="${id}"]`);
+        if (checkbox) {
+            const expander = checkbox.parentElement.querySelector('.expander');
+            if (expander && expander.textContent === '+') {
+                expander.click();
+            }
+        }
+    });
+}
+
 // 初始化选项
 function initializeOptions() {
     // 时间范围选项
@@ -20,6 +72,7 @@ function initializeOptions() {
         el.textContent = option.name;
         timeRangeSelect.appendChild(el);
     });
+    timeRangeSelect.addEventListener('change', saveState);
 
     // 数据来源选项
     const dataSourceSelect = document.getElementById('dataSource');
@@ -29,12 +82,14 @@ function initializeOptions() {
         el.textContent = option.name;
         dataSourceSelect.appendChild(el);
     });
+    dataSourceSelect.addEventListener('change', saveState);
 
     // 国家/地区选项
     const geoRegionSelect = document.getElementById('geoRegion');
     const geoSearchInput = document.getElementById('geoSearch');
     
     function updateGeoOptions(searchText = '') {
+        const currentValue = geoRegionSelect.value; // 保存当前选中的值
         geoRegionSelect.innerHTML = '';
         const filteredRegions = searchText 
             ? geoRegions.filter(region => 
@@ -47,12 +102,21 @@ function initializeOptions() {
             el.textContent = option.name;
             geoRegionSelect.appendChild(el);
         });
+
+        // 如果筛选结果只有一项，直接选中
+        if (filteredRegions.length === 1) {
+            geoRegionSelect.value = filteredRegions[0].id;
+            saveState();
+        }
+        // 否则，如果筛选后的结果中包含之前选中的值，则恢复选中状态
+        else if (currentValue && filteredRegions.some(region => region.id === currentValue)) {
+            geoRegionSelect.value = currentValue;
+        }
     }
 
-    // 初始化地区选项
     updateGeoOptions();
-
-    // 添加搜索事件监听
+    geoRegionSelect.addEventListener('change', saveState);
+    
     geoSearchInput.addEventListener('input', (e) => {
         updateGeoOptions(e.target.value.trim());
     });
@@ -100,43 +164,36 @@ function renderTree(node, container) {
     const contentDiv = document.createElement('div');
     contentDiv.className = 'node-content';
 
-    // 添加展开/折叠图标
-    const expander = document.createElement('span');
-    expander.className = 'expander';
-    if (node.children && node.children.length > 0) {
-        expander.textContent = '▶'; // 默认显示折叠图标
-        expander.style.cursor = 'pointer';
-        expander.onclick = () => {
-            const childrenDiv = nodeDiv.querySelector('.children');
-            const isExpanded = childrenDiv.style.display !== 'none';
-            childrenDiv.style.display = isExpanded ? 'none' : 'block';
-            expander.textContent = isExpanded ? '▶' : '▼';
-        };
-    } else {
-        expander.textContent = '•';
-        expander.style.color = '#999';
-    }
-    contentDiv.appendChild(expander);
-
-    // 添加复选框
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'checkbox';
-    if (node.id) {
-        checkbox.dataset.id = node.id;
-    }
-    checkbox.onchange = () => {
-        // 如果选中，递归选中所有子节点
-        if (node.children) {
-            const childCheckboxes = nodeDiv.querySelectorAll('.children input[type="checkbox"]');
-            childCheckboxes.forEach(cb => cb.checked = checkbox.checked);
-        }
-        // 更新父节点状态
+    checkbox.dataset.id = node.id;
+    checkbox.addEventListener('change', () => {
         updateParentCheckbox(checkbox);
-    };
+        saveState(); // 保存状态
+    });
+
+    let expander = null;
+    if (node.children && node.children.length > 0) {
+        expander = document.createElement('span');
+        expander.className = 'expander';
+        expander.textContent = '+';
+        expander.addEventListener('click', () => {
+            const childrenDiv = nodeDiv.querySelector('.children');
+            if (expander.textContent === '+') {
+                expander.textContent = '-';
+                childrenDiv.style.display = 'block';
+            } else {
+                expander.textContent = '+';
+                childrenDiv.style.display = 'none';
+            }
+            saveState(); // 保存状态
+        });
+        contentDiv.appendChild(expander);
+    }
+
     contentDiv.appendChild(checkbox);
 
-    // 添加名称
     const nameSpan = document.createElement('span');
     nameSpan.className = 'node-name';
     nameSpan.textContent = node.name;
@@ -144,11 +201,10 @@ function renderTree(node, container) {
 
     nodeDiv.appendChild(contentDiv);
 
-    // 如果有子节点，递归渲染
     if (node.children && node.children.length > 0) {
         const childrenDiv = document.createElement('div');
         childrenDiv.className = 'children';
-        childrenDiv.style.display = 'none'; // 默认隐藏子节点
+        childrenDiv.style.display = 'none';
         node.children.forEach(child => renderTree(child, childrenDiv));
         nodeDiv.appendChild(childrenDiv);
     }
@@ -175,7 +231,7 @@ function updateParentCheckbox(checkbox) {
 }
 
 // 初始化
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // 初始化选项
     initializeOptions();
     
@@ -186,4 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 添加按钮点击事件监听器
     document.getElementById('openSelectedBtn').addEventListener('click', openSelected);
+
+    // 恢复之前的状态
+    await restoreState();
 });
