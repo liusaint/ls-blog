@@ -1,6 +1,20 @@
 import { timeRanges, dataSources, geoRegions } from './constants.js';
 import { categoryData } from './category.js';
 
+// 从storage恢复时，同步更新搜索框的值
+function syncGeoSearchInput() {
+    const geoSearchInput = document.getElementById('geoSearch');
+    const clearGeoBtn = document.getElementById('clearGeo');
+    const selectedRegion = geoRegions.find(region => region.id === document.getElementById('geoRegion').value);
+    if (selectedRegion) {
+        geoSearchInput.value = selectedRegion.name;
+        clearGeoBtn.classList.add('visible');
+    } else {
+        geoSearchInput.value = '';
+        clearGeoBtn.classList.remove('visible');
+    }
+}
+
 // 转换数据结构
 function transformData(node) {
     return {
@@ -40,6 +54,7 @@ async function restoreState() {
     }
     if (trendsState.geoRegion) {
         document.getElementById('geoRegion').value = trendsState.geoRegion;
+        syncGeoSearchInput(); // 同步更新搜索框的值
     }
 
     // 恢复选中的分类和展开状态
@@ -60,6 +75,9 @@ async function restoreState() {
             }
         }
     });
+
+    // 更新选中数量
+    updateSelectedCount();
 }
 
 // 初始化选项
@@ -87,39 +105,101 @@ function initializeOptions() {
     // 国家/地区选项
     const geoRegionSelect = document.getElementById('geoRegion');
     const geoSearchInput = document.getElementById('geoSearch');
-    
-    function updateGeoOptions(searchText = '') {
-        const currentValue = geoRegionSelect.value; // 保存当前选中的值
-        geoRegionSelect.innerHTML = '';
-        const filteredRegions = searchText 
-            ? geoRegions.filter(region => 
-                `${region.name} ${region.id}`.toLowerCase().includes(searchText.toLowerCase()))
-            : geoRegions;
-        
-        filteredRegions.forEach(option => {
-            const el = document.createElement('option');
-            el.value = option.id;
-            el.textContent = option.name;
-            geoRegionSelect.appendChild(el);
-        });
+    const searchResults = document.getElementById('searchResults');
+    const clearGeoBtn = document.getElementById('clearGeo');
 
-        // 如果筛选结果只有一项，直接选中
-        if (filteredRegions.length === 1) {
-            geoRegionSelect.value = filteredRegions[0].id;
-            saveState();
-        }
-        // 否则，如果筛选后的结果中包含之前选中的值，则恢复选中状态
-        else if (currentValue && filteredRegions.some(region => region.id === currentValue)) {
-            geoRegionSelect.value = currentValue;
+    // 更新清除按钮的可见性
+    function updateClearButtonVisibility() {
+        if (geoSearchInput.value) {
+            clearGeoBtn.classList.add('visible');
+        } else {
+            clearGeoBtn.classList.remove('visible');
         }
     }
 
-    updateGeoOptions();
-    geoRegionSelect.addEventListener('change', saveState);
+    // 清除地区选择
+    function clearGeoSelection() {
+        geoRegionSelect.value = '';
+        geoSearchInput.value = '';
+        searchResults.style.display = 'none';
+        clearGeoBtn.classList.remove('visible');
+        saveState();
+    }
     
-    geoSearchInput.addEventListener('input', (e) => {
-        updateGeoOptions(e.target.value.trim());
+    // 更新搜索结果列表
+    function updateSearchResults(searchText = '') {
+        const filteredRegions = searchText 
+            ? geoRegions.filter(region => 
+                `${region.name} ${region.id}`.toLowerCase().includes(searchText.toLowerCase()))
+            : geoRegions; // 当搜索文本为空时，显示所有选项
+        
+        // 清空并更新搜索结果
+        searchResults.innerHTML = '';
+        
+        if (filteredRegions.length > 0) {
+            filteredRegions.forEach(region => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                if (region.id === geoRegionSelect.value) {
+                    div.classList.add('active');
+                }
+                div.textContent = region.name;
+                div.addEventListener('click', () => {
+                    // 更新select的值
+                    geoRegionSelect.value = region.id;
+                    // 更新输入框的值
+                    geoSearchInput.value = region.name;
+                    // 更新清除按钮
+                    updateClearButtonVisibility();
+                    // 隐藏搜索结果
+                    searchResults.style.display = 'none';
+                    // 保存状态
+                    saveState();
+                });
+                searchResults.appendChild(div);
+            });
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.style.display = 'none';
+        }
+    }
+
+    // 初始化地区选项到隐藏的select中
+    geoRegions.forEach(option => {
+        const el = document.createElement('option');
+        el.value = option.id;
+        el.textContent = option.name;
+        geoRegionSelect.appendChild(el);
     });
+
+    // 添加事件监听
+    geoSearchInput.addEventListener('input', (e) => {
+        updateSearchResults(e.target.value.trim());
+        updateClearButtonVisibility();
+    });
+
+    clearGeoBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // 防止触发外部点击事件
+        clearGeoSelection();
+    });
+
+    // 点击外部时隐藏搜索结果
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.option-group')) {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // 在搜索框获得焦点时显示搜索结果
+    geoSearchInput.addEventListener('focus', () => {
+        updateSearchResults(geoSearchInput.value.trim());
+    });
+
+    // 初始化时更新清除按钮状态
+    updateClearButtonVisibility();
+
+    // 添加打开选中分类的事件监听
+    document.getElementById('openSelected').addEventListener('click', openSelected);
 }
 
 // 打开选中的分类
@@ -170,6 +250,7 @@ function renderTree(node, container) {
     checkbox.dataset.id = node.id;
     checkbox.addEventListener('change', () => {
         updateParentCheckbox(checkbox);
+        updateSelectedCount();
         saveState(); // 保存状态
     });
 
@@ -230,6 +311,13 @@ function updateParentCheckbox(checkbox) {
     }
 }
 
+// 更新选中项数量
+function updateSelectedCount() {
+    const checkboxes = document.querySelectorAll('#categoryTree input[type="checkbox"]');
+    const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+    document.getElementById('selectedCount').textContent = selectedCount;
+}
+
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
     // 初始化选项
@@ -240,9 +328,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const rootNode = transformData(categoryData);
     renderTree(rootNode, treeContainer);
     
-    // 添加按钮点击事件监听器
-    document.getElementById('openSelectedBtn').addEventListener('click', openSelected);
-
     // 恢复之前的状态
     await restoreState();
+
+    // 初始更新选中数量
+    updateSelectedCount();
 });

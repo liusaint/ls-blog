@@ -12,6 +12,7 @@
         .tree-node {
             margin: 4px 0;
             padding-left: 20px;
+            position: relative;
         }
         .node-content {
             display: flex;
@@ -31,18 +32,18 @@
             cursor: pointer;
             user-select: none;
             width: 16px;
-            display: inline-block;
             text-align: center;
             color: #666;
-            margin: 2px 2px 0 0;
-            flex-shrink: 0;
+            position: absolute;
+            left: 0;
+            top: 4px;
         }
         .node-name {
             word-break: break-all;
             flex-grow: 1;
         }
         .options-panel {
-            margin-bottom: 16px;
+            margin-bottom: 8px;
             padding: 16px;
             border: 1px solid #dcdfe6;
             border-radius: 4px;
@@ -50,16 +51,65 @@
         }
         .option-group {
             margin-bottom: 12px;
+            position: relative;
         }
-        .option-group:last-child {
+        .geo-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .clear-btn {
+            position: absolute;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+     
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+     
+            font-size: 14px;
+
+            border-radius: 50%;
+            display: none;
+        }
+        #geoSearch{
             margin-bottom: 0;
         }
-        .option-label {
+        .clear-btn:hover {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+        .clear-btn.visible {
             display: block;
-            margin-bottom: 4px;
-            font-weight: 500;
-            font-size: 14px;
-            color: #333;
+        }
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+            z-index: 100;
+            display: none;
+        }
+        .search-result-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-result-item:hover {
+            background-color: #f8f9fa;
+        }
+        .search-result-item.active {
+            background-color: #e8f0fe;
         }
         select, input[type="text"] {
             width: 100%;
@@ -76,20 +126,35 @@
         .search-input {
             margin-bottom: 8px;
         }
-        .open-selected {
-            width: 100%;
-            margin-top: 16px;
-            background: #409eff;
+        .category-tree {
+            margin: 0;
+            padding-bottom: 60px; /* 为底部按钮留出空间 */
+        }
+        .selected-count {
+
+            color: #666;
+            font-size: 14px;
+        }
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #1a73e8;
             color: white;
             border: none;
-            padding: 8px 16px;
-            font-size: 14px;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             transition: background-color 0.2s;
         }
-        .open-selected:hover {
-            background: #66b1ff;
+        .floating-button:hover {
+            background-color: #1557b0;
+        }
+        .floating-button:active {
+            background-color: #174ea6;
         }
     </style>
 </head>
@@ -105,13 +170,18 @@
         </div>
         <div class="option-group">
             <label class="option-label">国家/地区</label>
-            <input type="text" id="geoSearch" class="search-input" placeholder="搜索国家/地区...">
-            <select id="geoRegion"></select>
+            <div class="geo-input-wrapper">
+                <input type="text" id="geoSearch" class="search-input" placeholder="搜索国家/地区..." autocomplete="off">
+                <span id="clearGeo" class="clear-btn" title="清除选择">×</span>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+            <select id="geoRegion" style="display: none;"></select>
         </div>
     </div>
 
-    <div id="categoryTree"></div>
-    <button class="open-selected" id="openSelectedBtn">打开选中项</button>
+    <div class="selected-count">已选中 <span id="selectedCount">0</span> 项</div>
+    <div id="categoryTree" class="category-tree"></div>
+    <button id="openSelected" class="floating-button">打开选中分类</button>
 
     <script type="module" src="sidepanel.js"></script>
 </body>
