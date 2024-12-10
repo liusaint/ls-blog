@@ -34,9 +34,10 @@ async function saveState() {
         geoRegion: document.getElementById('geoRegion').value,
         keyword: document.getElementById('keyword').value,
         selectedCategories: [],
-        expandedNodes: []
+        expandedNodes: [],
+        currentIndex: currentIndex, // 保存当前索引
+        pendingCategories: pendingCategories // 保存待打开的分类列表
     };
-
     // 遍历所有checkbox，收集选中状态
     const processNode = (node) => {
         const content = node.querySelector('.node-content');
@@ -69,29 +70,44 @@ async function saveState() {
     await chrome.storage.local.set({ trendsState: state });
 }
 
+// 存储待打开的分类列表和当前索引
+let pendingCategories = [];
+let currentIndex = 0;
+
 // 从 storage 恢复状态
 async function restoreState() {
     const { trendsState } = await chrome.storage.local.get('trendsState');
     if (!trendsState) return;
-
+    // alert(JSON.stringify(trendsState))
     // 恢复选项值
     if (trendsState.timeRange) {
         document.getElementById('timeRange').value = trendsState.timeRange;
+        previousTimeRange = trendsState.timeRange; // 恢复之前的时间范围
     }
     if (trendsState.dataSource) {
         document.getElementById('dataSource').value = trendsState.dataSource;
+        previousDataSource = trendsState.dataSource; // 恢复之前的数据源
     }
     if (trendsState.geoRegion) {
         document.getElementById('geoRegion').value = trendsState.geoRegion;
         syncGeoSearchInput();
+        previousGeoRegion = trendsState.geoRegion; // 恢复之前的地区
     }
     if (trendsState.keyword) {
         document.getElementById('keyword').value = trendsState.keyword;
+        previousKeyword = trendsState.keyword; // 恢复之前的关键词
     }
 
     if (!trendsState.selectedCategories?.length) {
         return;
     }
+    // 恢复待打开的分类列表
+    pendingCategories = trendsState.pendingCategories || [];
+    
+    // 恢复当前索引
+    currentIndex = trendsState.currentIndex || 0;
+
+
 
     // 创建选中路径的Set以提高查找效率
     const selectedPaths = new Set(trendsState.selectedCategories);
@@ -328,7 +344,6 @@ function openSelected() {
     const selectedCategories = [];
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
         if (checkbox.dataset.path) {
-            // 从路径中获取最后的ID
             const lastId = checkbox.dataset.path.split('/').pop();
             selectedCategories.push(lastId);
         }
@@ -343,26 +358,55 @@ function openSelected() {
     const dataSource = document.getElementById('dataSource').value;
     const geoRegion = document.getElementById('geoRegion').value;
     const keyword = document.getElementById('keyword').value.trim();
+    if (JSON.stringify(pendingCategories) !== JSON.stringify(selectedCategories) ||
+        timeRange !== previousTimeRange || 
+        dataSource !== previousDataSource || 
+        geoRegion !== previousGeoRegion || 
+        keyword !== previousKeyword) {
+        pendingCategories = selectedCategories;
+        currentIndex = 0; // 重置索引
+    }
 
-    // 为每个选中的分类创建一个新标签页
-    selectedCategories.forEach(category => {
+    // 打开下一个5个分类
+    const categoriesToOpen = pendingCategories.slice(currentIndex, currentIndex + 5);
+    categoriesToOpen.forEach(category => {
         const url = new URL('https://trends.google.com/trends/explore');
-        // 直接使用原始值，searchParams.append 会自动进行编码
         url.searchParams.append('date', timeRange);
         if (dataSource) url.searchParams.append('gprop', dataSource);
-        // 只有当不是全球时才添加 geo 参数
         if (geoRegion && geoRegion.toLowerCase() !== 'global') {
             url.searchParams.append('geo', geoRegion);
         }
-        // 如果有关键词，添加q参数
         if (keyword) {
             url.searchParams.append('q', keyword);
         }
         url.searchParams.append('cat', category);
         
         chrome.tabs.create({ url: url.toString() });
+
+
+
     });
+
+    // 更新当前索引
+    currentIndex += 5;
+    if (currentIndex >= pendingCategories.length) {
+        currentIndex = 0; // 如果已打开所有分类，则重置索引
+    }
+
+    // 更新之前的参数
+    previousTimeRange = timeRange;
+    previousDataSource = dataSource;
+    previousGeoRegion = geoRegion;
+    previousKeyword = keyword;
+
+    saveState();
 }
+
+// 初始化之前的参数
+let previousTimeRange = '';
+let previousDataSource = '';
+let previousGeoRegion = '';
+let previousKeyword = '';
 
 // 更新父节点的复选框状态
 function updateParentCheckbox(checkbox) {
