@@ -344,8 +344,13 @@ function openSelected() {
     const selectedCategories = [];
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
         if (checkbox.dataset.path) {
-            const lastId = checkbox.dataset.path.split('/').pop();
-            selectedCategories.push(lastId);
+            // 添加当前分类和所有父分类的ID
+            const pathParts = checkbox.dataset.path.split('/');
+            pathParts.forEach(id => {
+                if (!selectedCategories.includes(id)) {
+                    selectedCategories.push(id);
+                }
+            });
         }
     });
 
