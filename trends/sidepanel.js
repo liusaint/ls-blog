@@ -367,7 +367,7 @@ function openSelected() {
         timeRange !== previousTimeRange || 
         dataSource !== previousDataSource || 
         geoRegion !== previousGeoRegion || 
-        keyword !== previousKeyword) {
+        normalizeKeywords(keyword) !== normalizeKeywords(previousKeyword)) {
         pendingCategories = selectedCategories;
         currentIndex = 0; // 重置索引
     }
@@ -382,14 +382,15 @@ function openSelected() {
             url.searchParams.append('geo', geoRegion);
         }
         if (keyword) {
-            url.searchParams.append('q', keyword);
+            // 处理多个关键词，以/分割
+            const keywords = keyword.split('/').map(k => k.trim()).filter(k => k);
+            if (keywords.length > 0) {
+                url.searchParams.append('q', keywords.join(','));
+            }
         }
         url.searchParams.append('cat', category);
         
         chrome.tabs.create({ url: url.toString() });
-
-
-
     });
 
     // 更新当前索引
@@ -405,6 +406,15 @@ function openSelected() {
     previousKeyword = keyword;
 
     saveState();
+}
+
+// 标准化关键词，用于比较
+function normalizeKeywords(keyword) {
+    if (!keyword) return '';
+    return keyword.split('/')
+        .map(k => k.trim())
+        .filter(k => k)
+        .join(',');
 }
 
 // 初始化之前的参数
