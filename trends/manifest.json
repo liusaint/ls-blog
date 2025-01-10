@@ -17,6 +17,12 @@
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://trends.google.com/trends/explore*"],
+      "js": ["content.js"]
+    }
+  ],
   "host_permissions": [
     "https://trends.google.com/*"
   ]

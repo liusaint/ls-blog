@@ -98,20 +98,14 @@ async function restoreState() {
         previousKeyword = trendsState.keyword; // 恢复之前的关键词
     }
 
-    if (!trendsState.selectedCategories?.length) {
-        return;
-    }
     // 恢复待打开的分类列表
     pendingCategories = trendsState.pendingCategories || [];
-    
     // 恢复当前索引
     currentIndex = trendsState.currentIndex || 0;
 
-
-
     // 创建选中路径的Set以提高查找效率
-    const selectedPaths = new Set(trendsState.selectedCategories);
-    const expandedPaths = new Set(trendsState.expandedNodes);
+    const selectedPaths = new Set(trendsState.selectedCategories || []);
+    const expandedPaths = new Set(trendsState.expandedNodes || []);
 
     // 递归处理节点
     const processNode = (node) => {
@@ -148,7 +142,9 @@ async function restoreState() {
 
     // 更新所有父节点的状态
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        updateParentCheckbox(checkbox);
+        if (checkbox.closest('.tree-node')) {
+            updateParentCheckbox(checkbox);
+        }
     });
 
     // 更新选中数量
@@ -337,6 +333,18 @@ function initializeOptions() {
 
     // 添加关键词输入框的change事件监听
     document.getElementById('keyword').addEventListener('input', saveState);
+
+    // 添加隐藏地图区域的change事件监听
+    document.getElementById('hideGeoMap').addEventListener('change', (e) => {
+        chrome.storage.local.set({ hideGeoMap: e.target.checked });
+    });
+
+    // 恢复隐藏地图区域的状态
+    chrome.storage.local.get('hideGeoMap', ({ hideGeoMap }) => {
+        if (hideGeoMap !== undefined) {
+            document.getElementById('hideGeoMap').checked = hideGeoMap;
+        }
+    });
 }
 
 // 打开选中的分类
