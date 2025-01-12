@@ -390,8 +390,8 @@ function openSelected() {
             url.searchParams.append('geo', geoRegion);
         }
         if (keyword) {
-            // 处理多个关键词，以/分割
-            const keywords = keyword.split('/').map(k => k.trim()).filter(k => k);
+            // 处理多个关键词，以英文逗号分割
+            const keywords = keyword.split(',').map(k => k.trim()).filter(k => k);
             if (keywords.length > 0) {
                 url.searchParams.append('q', keywords.join(','));
             }
@@ -419,7 +419,7 @@ function openSelected() {
 // 标准化关键词，用于比较
 function normalizeKeywords(keyword) {
     if (!keyword) return '';
-    return keyword.split('/')
+    return keyword.split(',')
         .map(k => k.trim())
         .filter(k => k)
         .join(',');
