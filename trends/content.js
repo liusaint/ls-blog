@@ -6,7 +6,7 @@ function checkAndHideGeoMap() {
             if (!document.getElementById('hide-geo-map-style')) {
                 const style = document.createElement('style');
                 style.id = 'hide-geo-map-style';
-                style.textContent = '.widget-container:has(trends-widget[widget-name^="GEO_MAP"]) { display: none !important; }';
+                style.textContent = '.widget-container:has(trends-widget[widget-name^="GEO_MAP"]) { display: none !important; }.widget-container.flex-50{max-width:100% !important;}';
                 document.head.appendChild(style);
             }
         } else {
